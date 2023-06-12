@@ -16,6 +16,8 @@ import project from "../../public/launchpad/arks.jpg";
 import avatar from "../../public/launchpad/avatar.png";
 import bitdaAvatar from "../../public/launchpad/bitda.jpeg";
 import bitdaBanner from "../../public/launchpad/bitdaBanner.jpg";
+import satBanner from "../../public/launchpad/satBanner.png";
+import satAvatar from "../../public/launchpad/satAvatar.png";
 import avatar3 from "../../public/launchpad/avatar3-1.png";
 import avatar1 from "../../public/launchpad/avatar1.png";
 import project1 from "../../public/launchpad/project1.jpg";
@@ -159,6 +161,19 @@ const Launchpad = () => {
       hot: false,
       details: "/launchpad",
       twitter: "https://twitter.com/BITDABrc",
+      medium: null,
+      telegram: null,
+      discord: null,
+    },
+    {
+      id: 10,
+      title: "SATBYTES",
+      desc: `SATBYTES Labs is revolutionizing web3 creatives by fully decentralizing participation and distribution of IP commercial value amongst its community through the "Villuminaiti" token and inscribed limited edition collections.   A first of its kind, community driven creatives based on innovative "slice-of-life" genre for Bitcoin enthusiasts!`,
+      banner: satBanner,
+      avatar: satAvatar,
+      hot: false,
+      details: "/launchpad",
+      twitter: "https://twitter.com/SATBYTES_Labs",
       medium: null,
       telegram: null,
       discord: null,
