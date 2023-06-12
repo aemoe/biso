@@ -266,11 +266,12 @@ const startTime = 1684920600
 const endTime = 1684920600 + 3 * 24 * 60 * 60
 
 export async function getStakeByAddress(req, res) {
-  const { address } = req.params;
+  const { address, projectID } = req.params;
   const totalSupply = await STAKE.sum("amount", {
     where: {
       address: address,
       state: 1,
+      projectID: projectID
     },
   });
 
@@ -282,10 +283,11 @@ export async function getStakeByAddress(req, res) {
 }
 
 export async function getInscriptionsByAddress(req, res) {
-  const { address } = req.params;
+  const { address, projectID } = req.params;
   let inscriptions = await InscriptionTOTAL.findAll({
     where: {
       address: address,
+      projectID: projectID, 
       state: 1
     },
   })
@@ -300,9 +302,9 @@ export async function getInscriptionsByAddress(req, res) {
 }
 
 export async function stake(req, res) {
-  let { address, tx, amount, inscriptionId } = req.body;
+  let { address, tx, amount, inscriptionId, projectID } = req.body;
 
-  console.log(address, tx, amount, inscriptionId);
+  console.log(address, tx, amount, inscriptionId, projectID);
 
   if( parseInt(new Date().getTime() / 1000) < startTime){
     res.send({
@@ -312,7 +314,7 @@ export async function stake(req, res) {
     return;
   }
 
-  if (!address || !tx || !amount || !inscriptionId) {
+  if (!address || !tx || !amount || !inscriptionId || !projectID) {
     res.send({
       msg: "Incomplete parameter",
       code: 0,
@@ -321,8 +323,6 @@ export async function stake(req, res) {
   }
 
   const ga = !!req.cookies._ga ? req.cookies._ga : "";
-
-
   let rewards = await earned(address);
 
   const result = await STAKE.create({
@@ -330,6 +330,7 @@ export async function stake(req, res) {
     tx: tx,
     inscriptionId: inscriptionId,
     amount: amount,
+    projectID: projectID,
     ga: ga,
     date: new Date().getTime(),
     state: 1,
@@ -363,12 +364,12 @@ export async function stake(req, res) {
 }
 
 export async function inscription(req, res) {
-  let { address,  amount, inscriptionId } = req.body;
+  let { address,  amount, inscriptionId, projectID } = req.body;
 
-  console.log(address, amount, inscriptionId);
+  console.log(address, amount, inscriptionId, projectID);
 
 
-  if (!address || !amount || !inscriptionId) {
+  if (!address || !amount || !inscriptionId || !projectID) {
     res.send({
       msg: "Incomplete parameter",
       code: 0,
@@ -382,6 +383,7 @@ export async function inscription(req, res) {
     address: address,
     inscriptionId: inscriptionId,
     amount: amount,
+    projectID: projectID,
     ga: ga,
     date: new Date().getTime(),
     state: 1,
