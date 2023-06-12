@@ -48,7 +48,7 @@ const StakePool = (props) => {
     updateBalance();
     const getStake = () => {
       const timer = setInterval(async () => {
-        const totalStake = await getTotalStake();
+        const totalStake = await getTotalStake(projectID);
         setTotalStake(totalStake.data.totalStake);
         updateBalance();
       }, 5000);
@@ -123,15 +123,17 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    let { inscriptionId } = await window.unisat.inscribeTransfer(
-      "biso",
-      transferValue,
-      {
-        feeRate: data.halfHourFee,
-      }
-    );
+    // let { inscriptionId } = await window.unisat.inscribeTransfer(
+    //   "biso",
+    //   transferValue,
+    //   {
+    //     feeRate: data.halfHourFee,
+    //   }
+    // );
     console.log(inscriptionId);
+    let inscriptionId = "574101b8506f048807253b34b4c5298d42d659324b37457c21f90bf0514e6088i0"
     await inscription(accounts[0], transferValue, inscriptionId, projectID);
+    toast.success("Inscription success", toastConfig);
     setTransferValue(0);
   };
 
@@ -153,6 +155,7 @@ const StakePool = (props) => {
     // );
     let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
     await stake(accounts[0], txid, amount, inscriptionId, projectID);
+    toast.success("Stake success", toastConfig);
     console.log("txid", txid);
   };
 

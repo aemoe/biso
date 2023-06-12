@@ -24,11 +24,11 @@ export const getTotalPublicSale = async () => {
     }
 }
 
-export const getTotalStake = async () => {
+export const getTotalStake = async (projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/getTotalStake`)
+        } = await axios.get(`/api/getTotalStake/${projectID}`)
         return data
     } catch (error) {
         console.log(error)

@@ -9,6 +9,7 @@ export default function (sequelize, DataTypes) {
     address: DataTypes.STRING,
     amount: DataTypes.STRING,
     inscriptionId: DataTypes.STRING,
+    projectID: DataTypes.STRING,
     ga: DataTypes.STRING,
     date: DataTypes.STRING,
     state: DataTypes.INTEGER,

@@ -121,9 +121,11 @@ export async function publicSale(req, res) {
 }
 
 export async function getTotalStake(req, res) {
+  const { projectID } = req.params;
   const totalStake = await STAKE.sum("amount",{
     where: {
       state: 1,
+      projectID: projectID
     },
   });
 
