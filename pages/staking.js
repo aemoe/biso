@@ -105,7 +105,8 @@ const StakePool = (props) => {
 
       setTransferableInscriptions(transferableInscriptions.data.data.detail);
       const earn = await earned(accounts[0]);
-      console.log("earn", earn);
+      console.log("earn", earn.earn);
+      setMintNft(earn.earn)
       const stakeBiso = await getStakeByAddress(accounts[0], projectID);
       console.log("stakeBiso", stakeBiso);
       setStakeBalance(stakeBiso.totalSupply);
@@ -142,14 +143,15 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    let txid = await window.unisat.sendInscription(
-      // "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
-      "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
-      inscriptionId,
-      {
-        feeRate: data.halfHourFee,
-      }
-    );
+    // let txid = await window.unisat.sendInscription(
+    //   // "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
+    //   "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
+    //   inscriptionId,
+    //   {
+    //     feeRate: data.halfHourFee,
+    //   }
+    // );
+    let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
     await stake(accounts[0], txid, amount, inscriptionId, projectID);
     console.log("txid", txid);
   };
@@ -276,7 +278,7 @@ const StakePool = (props) => {
           <div className={styles.props}>
             <div className={styles.label}>Already Mint Amount</div>
             <div className={classNames(styles.val, styles.ori)}>
-              {parseInt(mintNft)} AKRS
+              {mintNft} AKRS
             </div>
           </div>
           <p>
