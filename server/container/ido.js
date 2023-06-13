@@ -264,8 +264,8 @@ export async function whitelistSale(req, res) {
   }
 }
 
-const startTime = 1686585600
-const endTime = 1686585600 + 1 * 24 * 60 * 60
+const startTime = 1686675600 + 9 * 60 * 60
+const endTime = 1686675600 + 24 * 60 * 60
 
 export async function getStakeByAddress(req, res) {
   const { address, projectID } = req.params;
@@ -405,6 +405,51 @@ export async function inscription(req, res) {
   }
 }
 
+export async function earnSpeed(req, res) {
+  let { address, projectID } = req.params;
+
+  console.log(address);
+  if (!address && !projectID) {
+    res.send({
+      msg: "Incomplete parameter",
+      code: 0,
+    });
+    return;
+  }
+
+  
+ const totalSupply = await STAKE.sum("amount", {
+    where: {
+      state: 1,
+      projectID: projectID
+    },
+  });
+
+  console.log("totalSupply",totalSupply)
+
+  const myStake = await STAKE.sum("amount", {
+    where: {
+      address: address,
+      state: 1,
+      projectID: projectID
+    },
+  });
+
+  if(new Date().getTime() / 1000 < startTime){
+     res.send({
+      msg: "Success",
+      code: 1,
+      earn: 0
+    });
+  }
+  const earn = 5000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( (new Date().getTime()) / 1000 - startTime )
+
+  res.send({
+      msg: "Success",
+      code: 1,
+      earn: earn
+    });
+}
 
 export async function rewardPerToken() {
   const totalSupply = await STAKE.sum("amount", {
@@ -2689,3 +2734,5 @@ let boxArr =
 "00470902aee5a6fb377567f343d46eea5760bd707aa863180d8c131b9b8c6b6fi0",
 "0016f500f3f9f958cc5461bd04297a51a0084d411582fae5e48c680981e2b8b0i0"
 ]
+
+

@@ -144,6 +144,19 @@ export const earned = async (adress, projectID) => {
     }
 }
 
+export const earnSpeed = async (adress, projectID) => {
+    try {
+        const {
+            data
+        } = await axios.get(`/api/earnSpeed/${adress}/${projectID}`)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
 export const getStakeByAddress = async (adress,projectID) => {
     try {
         const {
@@ -215,7 +228,6 @@ export const getRefundByAddress = async (adress) => {
         console.log(error)
     }
 }
-
 
 export const mintSale = async (address, tx, type, amount, projectID) => {
     try {

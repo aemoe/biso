@@ -23,6 +23,7 @@ import {
   openBox,
   getRefundByAddress,
   refundBiso,
+  earnSpeed
 } from "../api/api";
 
 const receiveAddress  = ["bc1pyf6e4ysv00e84hwv5am07m2hfcsxs5l9q8zt6c6aj4aal03mh5xqe376p0"];
@@ -104,7 +105,7 @@ const StakePool = (props) => {
       setBuildInscriptions(inscription1);
 
       setTransferableInscriptions(transferableInscriptions.data.data.detail);
-      const earn = await earned(accounts[0], projectID);
+      const earn = await earnSpeed(accounts[0], projectID);
       console.log("earn", earn.earn);
       setMintNft(earn.earn)
       const stakeBiso = await getStakeByAddress(accounts[0], projectID);
@@ -123,21 +124,25 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    // let { inscriptionId } = await window.unisat.inscribeTransfer(
-    //   "biso",
-    //   transferValue,
-    //   {
-    //     feeRate: data.halfHourFee,
-    //   }
-    // );
+    let { inscriptionId } = await window.unisat.inscribeTransfer(
+      "biso",
+      transferValue,
+      {
+        feeRate: data.halfHourFee,
+      }
+    );
     console.log(inscriptionId);
-    let inscriptionId = "574101b8506f048807253b34b4c5298d42d659324b37457c21f90bf0514e6088i0"
+    // let inscriptionId = "574101b8506f048807253b34b4c5298d42d659324b37457c21f90bf0514e6088i0"
     await inscription(accounts[0], transferValue, inscriptionId, projectID);
     toast.success("Inscription success", toastConfig);
     setTransferValue(0);
   };
 
   const sendInscription = async (inscriptionId, amount) => {
+    if(new Date().getTime() / 1000  < 1686675600 || new Date().getTime() / 1000 > 1686675600 + 9 * 60 * 60){
+      toast.warning("Stake already end.", toastConfig)
+      return
+    }
     window.unisat.requestAccounts();
     let accounts = await window.unisat.getAccounts();
     console.log(inscriptionId);
@@ -145,15 +150,14 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    // let txid = await window.unisat.sendInscription(
-    //   // "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
-    //   "bc1pvf6mc49u8kdghauf22zs9k9xqkp54azqmqtktv4m28f46q5c2ksqwyxk3l",
-    //   inscriptionId,
-    //   {
-    //     feeRate: data.halfHourFee,
-    //   }
-    // );
-    let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
+    let txid = await window.unisat.sendInscription(
+      receiveAddress[0],
+      inscriptionId,
+      {
+        feeRate: data.halfHourFee,
+      }
+    );
+    // let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
     await stake(accounts[0], txid, amount, inscriptionId, projectID);
     toast.success("Stake success", toastConfig);
     console.log("txid", txid);
@@ -205,6 +209,12 @@ const StakePool = (props) => {
         <div className={classNames(styles.card, styles.hasmoon)}>
           <div className={styles.cardTitle}>
             <span>Stake $BISO</span> Earn $ARKS.
+          </div>
+          <div className={styles.props}>
+            <div className={styles.label}>Total Stake</div>
+            <div className={classNames(styles.val, styles.ori)}>
+              {totalStake} $BISO
+            </div>
           </div>
           <div className={styles.props}>
             <div className={styles.label}>Total Balance</div>
