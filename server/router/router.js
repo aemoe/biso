@@ -10,7 +10,7 @@ export default function (router, handle) {
     router.get("/api/getPublicSaleByAddress/:address", require("../container/ido.js").getPublicSaleByAddress)
     router.get("/api/getTotalPublicSale", require("../container/ido.js").getTotalPublicSale)
 
-    router.get("/api/earn/:address", require("../container/ido.js").earn)
+    router.get("/api/earn/:address/:projectID", require("../container/ido.js").earn)
     router.get("/api/getStakeByAddress/:address/:projectID", require("../container/ido.js").getStakeByAddress)
     router.get("/api/getInscriptionsByAddress/:address/:projectID", require("../container/ido.js").getInscriptionsByAddress)
     router.get("/api/getTotalStake/:projectID", require("../container/ido.js").getTotalStake)

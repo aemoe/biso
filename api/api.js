@@ -133,11 +133,11 @@ export const inscription = async (address, amount, inscriptionId,projectID) => {
     }
 }
 
-export const earned = async (adress) => {
+export const earned = async (adress, projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/earn/${adress}`)
+        } = await axios.get(`/api/earn/${adress}/${projectID}`)
         return data
     } catch (error) {
         console.log(error)

@@ -325,7 +325,7 @@ export async function stake(req, res) {
   }
 
   const ga = !!req.cookies._ga ? req.cookies._ga : "";
-  let rewards = await earned(address);
+  let rewards = await earned(address, projectID);
 
   const result = await STAKE.create({
     address: address,
@@ -432,7 +432,7 @@ export async function rewardPerToken() {
 }
 
 export async function earn(req, res) {
-  let { address } = req.params;
+  let { address, projectID } = req.params;
 
   console.log(address);
   if (!address) {
@@ -445,15 +445,16 @@ export async function earn(req, res) {
   res.send({
       msg: "Success",
       code: 1,
-      earn: await earned(address)
+      earn: await earned(address, projectID)
     });
 }
 
-export async function earned(address) {
+export async function earned(address, projectID) {
   const totalSupply = await STAKE.sum("amount", {
     where: {
       address: address,
       state: 1,
+      projectID: projectID
     },
   });
 
@@ -463,6 +464,7 @@ export async function earned(address) {
     attributes: ["userRewardPerTokenPaid", "rewards"],
     where: {
       address: address,
+      projectID: projectID
     },
   });
 
