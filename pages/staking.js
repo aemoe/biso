@@ -217,6 +217,12 @@ const StakePool = (props) => {
             </div>
           </div>
           <div className={styles.props}>
+            <div className={styles.label}>APR</div>
+            <div className={classNames(styles.val, styles.ori)}>
+              {2500 / (totalStake * 0.01)  / 7 * 365 * 100} %
+            </div>
+          </div>
+          <div className={styles.props}>
             <div className={styles.label}>Total Balance</div>
             <div className={classNames(styles.val, styles.ori)}>
               {overallBalance} $BISO
@@ -294,13 +300,18 @@ const StakePool = (props) => {
               {mintNft} AKRS
             </div>
           </div>
+          <div className={styles.props}>
+            <div className={styles.label}>End Time</div>
+            <div className={classNames(styles.val, styles.ori)}>
+              2023.6.21 23:00
+            </div>
+          </div>
           <p>
-            The deadline for collecting the blind box is: 31 May 2023
-            07:00:00 GMT
+            It will be automatically refunded to your account within 12 hours of completion.
           </p>
-          <p>
+          {/* <p>
             <button onClick={() => refund()}>Withdraw</button>
-          </p>
+          </p> */}
         </div>
         </>
   );
