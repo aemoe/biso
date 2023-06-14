@@ -139,7 +139,7 @@ const StakePool = (props) => {
   };
 
   const sendInscription = async (inscriptionId, amount) => {
-    if(new Date().getTime() / 1000  < 1686675600 || new Date().getTime() / 1000 > 1686675600 + 9 * 60 * 60){
+    if(new Date().getTime() / 1000  < 1686740400 || new Date().getTime() / 1000 > 1686740400 + 9 * 60 * 60){
       toast.warning("Stake already end.", toastConfig)
       return
     }

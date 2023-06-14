@@ -264,8 +264,8 @@ export async function whitelistSale(req, res) {
   }
 }
 
-const startTime = 1686675600 + 9 * 60 * 60
-const endTime = 1686675600 + 24 * 60 * 60
+const startTime = 1686740400 + 1 * 60 * 60
+const endTime = 1686740400 + 5 * 60 * 60
 
 export async function getStakeByAddress(req, res) {
   const { address, projectID } = req.params;
