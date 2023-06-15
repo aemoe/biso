@@ -308,7 +308,7 @@ export async function stake(req, res) {
 
   console.log(address, tx, amount, inscriptionId, projectID);
 
-  if( parseInt(new Date().getTime() / 1000) < startTime){
+  if( parseInt(new Date().getTime() / 1000) < 1686812400){
     res.send({
       msg: "Not start!",
       code: 0,
@@ -325,7 +325,7 @@ export async function stake(req, res) {
   }
 
   const ga = !!req.cookies._ga ? req.cookies._ga : "";
-  let rewards = await earned(address, projectID);
+  // let rewards = await earned(address, projectID);
 
   const result = await STAKE.create({
     address: address,
@@ -344,12 +344,13 @@ export async function stake(req, res) {
     },
     {
       where: {
-        inscriptionId: inscriptionId
+        inscriptionId: inscriptionId,
+        projectID: projectID,
       },
     }
   );
 
-  updateReward(address,rewards)
+  // updateReward(address,rewards)
   
 
   if (result) {

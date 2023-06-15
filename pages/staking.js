@@ -150,14 +150,14 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    let txid = await window.unisat.sendInscription(
-      receiveAddress[0],
-      inscriptionId,
-      {
-        feeRate: data.halfHourFee,
-      }
-    );
-    // let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
+    // let txid = await window.unisat.sendInscription(
+    //   receiveAddress[0],
+    //   inscriptionId,
+    //   {
+    //     feeRate: data.halfHourFee,
+    //   }
+    // );
+    let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
     await stake(accounts[0], txid, amount, inscriptionId, projectID);
     toast.success("Stake success", toastConfig);
     console.log("txid", txid);
