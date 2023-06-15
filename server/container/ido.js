@@ -264,8 +264,8 @@ export async function whitelistSale(req, res) {
   }
 }
 
-const startTime = 1686740400 + 1 * 60 * 60
-const endTime = 1686740400 + 5 * 60 * 60
+const startTime = 1686913200
+const endTime = 1687518000
 
 export async function getStakeByAddress(req, res) {
   const { address, projectID } = req.params;
@@ -443,7 +443,7 @@ export async function earnSpeed(req, res) {
     });
   }
   const lastDate = Math.min((new Date().getTime()) / 1000 , endTime)
-  const earn = 5000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( lastDate - startTime )
+  const earn = 290000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( lastDate - startTime )
 
   res.send({
       msg: "Success",

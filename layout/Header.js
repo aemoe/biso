@@ -81,6 +81,15 @@ const Header = props => {
               NFT
             </li>
           </Link>
+           <Link href="/staking" passHref>
+            <li
+              className={cx({
+                active: activeIndex === 4
+              })}
+            >
+              Staking
+            </li>
+          </Link>
           <a href="https://bisoswap.gitbook.io/bisoswap/" target="_blank" rel="noreferrer">
             <li>Doc</li>
           </a>

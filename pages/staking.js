@@ -139,8 +139,8 @@ const StakePool = (props) => {
   };
 
   const sendInscription = async (inscriptionId, amount) => {
-    if(new Date().getTime() / 1000  < 1686740400 || new Date().getTime() / 1000 > 1686740400 + 9 * 60 * 60){
-      toast.warning("Stake already end.", toastConfig)
+    if(new Date().getTime() / 1000  < 1686812400 || new Date().getTime() / 1000 > 1686913200){
+      toast.warning("Stake not start or already end.", toastConfig)
       return
     }
     window.unisat.requestAccounts();
@@ -209,6 +209,12 @@ const StakePool = (props) => {
         <div className={classNames(styles.card, styles.hasmoon)}>
           <div className={styles.cardTitle}>
             <span>Stake $BISO</span> Earn $ARKS.
+          </div>
+           <div className={styles.props}>
+            <div className={styles.label}>Total Reward</div>
+            <div className={classNames(styles.val, styles.ori)}>
+              290000 $ARKS
+            </div>
           </div>
           <div className={styles.props}>
             <div className={styles.label}>Total Stake</div>
@@ -301,9 +307,15 @@ const StakePool = (props) => {
             </div>
           </div>
           <div className={styles.props}>
-            <div className={styles.label}>End Time</div>
+            <div className={styles.label}>Stake Time</div>
             <div className={classNames(styles.val, styles.ori)}>
-              2023.6.21 23:00
+              2023.6.15 15:00 - 2023.6.16 19:00
+            </div>
+          </div>
+           <div className={styles.props}>
+            <div className={styles.label}>Mint Time</div>
+            <div className={classNames(styles.val, styles.ori)}>
+              2023.6.16 19:00 - 2023.6.23 19:00
             </div>
           </div>
           <p>
@@ -320,7 +332,7 @@ const StakePool = (props) => {
 
 const Stake = () => {
   return (
-    <HeaderFooter activeIndex={3}>
+    <HeaderFooter activeIndex={4}>
       <ToastContainer />
       <div className={styles.wrapper}>
         <div className={styles.container} id="mint">
