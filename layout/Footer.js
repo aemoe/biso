@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import styles from '../styles/layout.module.scss';
+import Link from "next/link";
+import styles from "../styles/layout.module.scss";
 
 const Footer = ({ t }) => {
   return (
@@ -17,13 +17,25 @@ const Footer = ({ t }) => {
               <a href="https://t.me/BisoSwap" target="_blank" rel="noreferrer">
                 <li className={styles.tg}></li>
               </a>
-              <a href="https://twitter.com/bisoswap" target="_blank" rel="noreferrer">
+              <a
+                href="https://twitter.com/bisoswap"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <li className={styles.tw}></li>
               </a>
-              <a href="https://medium.com/@BisoSwap" target="_blank" rel="noreferrer">
+              <a
+                href="https://medium.com/@BisoSwap"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <li className={styles.md}></li>
               </a>
-              <a href="https://bisoswap.gitbook.io/bisoswap/" target="_blank" rel="noreferrer">
+              <a
+                href="https://bisoswap.gitbook.io/bisoswap/"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <li className={styles.gb}></li>
               </a>
             </ul>

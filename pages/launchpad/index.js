@@ -18,6 +18,10 @@ import bitdaAvatar from "../../public/launchpad/bitda.jpeg";
 import bitdaBanner from "../../public/launchpad/bitdaBanner.jpg";
 import satBanner from "../../public/launchpad/satBanner.png";
 import satAvatar from "../../public/launchpad/satAvatar.png";
+import rabetBanner from "../../public/launchpad/rabetBanner.png";
+import rabetAvatar from "../../public/launchpad/rabetAvatar.png";
+import orgtAvatar from "../../public/launchpad/orgtAvatar.jpeg";
+import orgtBanner from "../../public/launchpad/orgtBanner.png";
 import avatar3 from "../../public/launchpad/avatar3-1.png";
 import avatar1 from "../../public/launchpad/avatar1.png";
 import project1 from "../../public/launchpad/project1.jpg";
@@ -32,7 +36,6 @@ import icon2 from "../../public/launchpad/launchicon2.png";
 import icon3 from "../../public/launchpad/launchicon3.png";
 import icon4 from "../../public/launchpad/launchicon4.png";
 import hot from "../../public/launchpad/hot.svg";
-import github from "../../public/launchpad/github.png";
 import twitter from "../../public/launchpad/twitter.png";
 import telegram from "../../public/launchpad/telegram.png";
 import discord from "../../public/launchpad/discord.png";
@@ -174,6 +177,32 @@ const Launchpad = () => {
       hot: false,
       details: "/launchpad",
       twitter: "https://twitter.com/SATBYTES_Labs",
+      medium: null,
+      telegram: null,
+      discord: null,
+    },
+    {
+      id: 11,
+      title: "Rabet",
+      desc: `Rabet is the world's first decentralized recreation platform based on brc-20 that guarantees fairness and offers a golden opportunity to win JACKPOT!`,
+      banner: rabetBanner,
+      avatar: rabetAvatar,
+      hot: false,
+      details: "/launchpad",
+      twitter: "https://twitter.com/RabetBrc20",
+      medium: null,
+      telegram: null,
+      discord: null,
+    },
+    {
+      id: 12,
+      title: "Ordigate",
+      desc: `Ordigate is the first community-driven decentralized infrastructure on Ordinals.`,
+      banner: orgtBanner,
+      avatar: orgtAvatar,
+      hot: false,
+      details: "/launchpad",
+      twitter: "https://twitter.com/Ordigate_",
       medium: null,
       telegram: null,
       discord: null,
