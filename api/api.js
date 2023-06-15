@@ -24,11 +24,11 @@ export const getTotalPublicSale = async () => {
     }
 }
 
-export const getTotalStake = async () => {
+export const getTotalStake = async (projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/getTotalStake`)
+        } = await axios.get(`/api/getTotalStake/${projectID}`)
         return data
     } catch (error) {
         console.log(error)
@@ -102,13 +102,14 @@ export const whitelistSale = async (address, tx, whitelist_amount) => {
 }
 
 
-export const stake = async (address, tx, amount, inscriptionId) => {
+export const stake = async (address, tx, amount, inscriptionId, projectID) => {
     try {
         const {data} = await axios.post(`/api/stake`, {
                 address: address,
                 tx: tx,
                 amount: amount,
-                inscriptionId: inscriptionId
+                inscriptionId: inscriptionId,
+                projectID: projectID
             }
         )
         return data
@@ -117,12 +118,13 @@ export const stake = async (address, tx, amount, inscriptionId) => {
     }
 }
 
-export const inscription = async (address, amount, inscriptionId) => {
+export const inscription = async (address, amount, inscriptionId,projectID) => {
     try {
         const {data} = await axios.post(`/api/inscription`, {
                 address: address,
                 amount: amount,
-                inscriptionId: inscriptionId
+                inscriptionId: inscriptionId,
+                projectID: projectID
             }
         )
         return data
@@ -131,22 +133,22 @@ export const inscription = async (address, amount, inscriptionId) => {
     }
 }
 
-export const earned = async (adress) => {
+export const earned = async (adress, projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/earn/${adress}`)
+        } = await axios.get(`/api/earn/${adress}/${projectID}`)
         return data
     } catch (error) {
         console.log(error)
     }
 }
 
-export const getStakeByAddress = async (adress) => {
+export const earnSpeed = async (adress, projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/getStakeByAddress/${adress}`)
+        } = await axios.get(`/api/earnSpeed/${adress}/${projectID}`)
         return data
     } catch (error) {
         console.log(error)
@@ -154,11 +156,24 @@ export const getStakeByAddress = async (adress) => {
 }
 
 
-export const getInscriptionsByAddress = async (adress) => {
+
+export const getStakeByAddress = async (adress,projectID) => {
     try {
         const {
             data
-        } = await axios.get(`/api/getInscriptionsByAddress/${adress}`)
+        } = await axios.get(`/api/getStakeByAddress/${adress}/${projectID}`)
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const getInscriptionsByAddress = async (adress,projectID) => {
+    try {
+        const {
+            data
+        } = await axios.get(`/api/getInscriptionsByAddress/${adress}/${projectID}`)
         return data
     } catch (error) {
         console.log(error)
@@ -213,11 +228,6 @@ export const getRefundByAddress = async (adress) => {
         console.log(error)
     }
 }
-
-
-
-
-
 
 export const mintSale = async (address, tx, type, amount, projectID) => {
     try {

@@ -121,9 +121,11 @@ export async function publicSale(req, res) {
 }
 
 export async function getTotalStake(req, res) {
+  const { projectID } = req.params;
   const totalStake = await STAKE.sum("amount",{
     where: {
       state: 1,
+      projectID: projectID
     },
   });
 
@@ -262,15 +264,16 @@ export async function whitelistSale(req, res) {
   }
 }
 
-const startTime = 1684920600
-const endTime = 1684920600 + 3 * 24 * 60 * 60
+const startTime = 1686913200
+const endTime = 1687518000
 
 export async function getStakeByAddress(req, res) {
-  const { address } = req.params;
+  const { address, projectID } = req.params;
   const totalSupply = await STAKE.sum("amount", {
     where: {
       address: address,
       state: 1,
+      projectID: projectID
     },
   });
 
@@ -282,10 +285,11 @@ export async function getStakeByAddress(req, res) {
 }
 
 export async function getInscriptionsByAddress(req, res) {
-  const { address } = req.params;
+  const { address, projectID } = req.params;
   let inscriptions = await InscriptionTOTAL.findAll({
     where: {
       address: address,
+      projectID: projectID, 
       state: 1
     },
   })
@@ -300,11 +304,11 @@ export async function getInscriptionsByAddress(req, res) {
 }
 
 export async function stake(req, res) {
-  let { address, tx, amount, inscriptionId } = req.body;
+  let { address, tx, amount, inscriptionId, projectID } = req.body;
 
-  console.log(address, tx, amount, inscriptionId);
+  console.log(address, tx, amount, inscriptionId, projectID);
 
-  if( parseInt(new Date().getTime() / 1000) < startTime){
+  if( parseInt(new Date().getTime() / 1000) < 1686812400){
     res.send({
       msg: "Not start!",
       code: 0,
@@ -312,7 +316,7 @@ export async function stake(req, res) {
     return;
   }
 
-  if (!address || !tx || !amount || !inscriptionId) {
+  if (!address || !tx || !amount || !inscriptionId || !projectID) {
     res.send({
       msg: "Incomplete parameter",
       code: 0,
@@ -321,15 +325,14 @@ export async function stake(req, res) {
   }
 
   const ga = !!req.cookies._ga ? req.cookies._ga : "";
-
-
-  let rewards = await earned(address);
+  // let rewards = await earned(address, projectID);
 
   const result = await STAKE.create({
     address: address,
     tx: tx,
     inscriptionId: inscriptionId,
     amount: amount,
+    projectID: projectID,
     ga: ga,
     date: new Date().getTime(),
     state: 1,
@@ -341,12 +344,13 @@ export async function stake(req, res) {
     },
     {
       where: {
-        inscriptionId: inscriptionId
+        inscriptionId: inscriptionId,
+        projectID: projectID,
       },
     }
   );
 
-  updateReward(address,rewards)
+  // updateReward(address,rewards)
   
 
   if (result) {
@@ -363,12 +367,12 @@ export async function stake(req, res) {
 }
 
 export async function inscription(req, res) {
-  let { address,  amount, inscriptionId } = req.body;
+  let { address,  amount, inscriptionId, projectID } = req.body;
 
-  console.log(address, amount, inscriptionId);
+  console.log(address, amount, inscriptionId, projectID);
 
 
-  if (!address || !amount || !inscriptionId) {
+  if (!address || !amount || !inscriptionId || !projectID) {
     res.send({
       msg: "Incomplete parameter",
       code: 0,
@@ -382,6 +386,7 @@ export async function inscription(req, res) {
     address: address,
     inscriptionId: inscriptionId,
     amount: amount,
+    projectID: projectID,
     ga: ga,
     date: new Date().getTime(),
     state: 1,
@@ -401,6 +406,52 @@ export async function inscription(req, res) {
   }
 }
 
+export async function earnSpeed(req, res) {
+  let { address, projectID } = req.params;
+
+  console.log(address);
+  if (!address && !projectID) {
+    res.send({
+      msg: "Incomplete parameter",
+      code: 0,
+    });
+    return;
+  }
+
+  
+ const totalSupply = await STAKE.sum("amount", {
+    where: {
+      state: 1,
+      projectID: projectID
+    },
+  });
+
+  console.log("totalSupply",totalSupply)
+
+  const myStake = await STAKE.sum("amount", {
+    where: {
+      address: address,
+      state: 1,
+      projectID: projectID
+    },
+  });
+
+  if(new Date().getTime() / 1000 < startTime){
+     res.send({
+      msg: "Success",
+      code: 1,
+      earn: 0
+    });
+  }
+  const lastDate = Math.min((new Date().getTime()) / 1000 , endTime)
+  const earn = 290000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( lastDate - startTime )
+
+  res.send({
+      msg: "Success",
+      code: 1,
+      earn: earn
+    });
+}
 
 export async function rewardPerToken() {
   const totalSupply = await STAKE.sum("amount", {
@@ -428,7 +479,7 @@ export async function rewardPerToken() {
 }
 
 export async function earn(req, res) {
-  let { address } = req.params;
+  let { address, projectID } = req.params;
 
   console.log(address);
   if (!address) {
@@ -441,15 +492,16 @@ export async function earn(req, res) {
   res.send({
       msg: "Success",
       code: 1,
-      earn: await earned(address)
+      earn: await earned(address, projectID)
     });
 }
 
-export async function earned(address) {
+export async function earned(address, projectID) {
   const totalSupply = await STAKE.sum("amount", {
     where: {
       address: address,
       state: 1,
+      projectID: projectID
     },
   });
 
@@ -459,6 +511,7 @@ export async function earned(address) {
     attributes: ["userRewardPerTokenPaid", "rewards"],
     where: {
       address: address,
+      projectID: projectID
     },
   });
 
@@ -2683,3 +2736,5 @@ let boxArr =
 "00470902aee5a6fb377567f343d46eea5760bd707aa863180d8c131b9b8c6b6fi0",
 "0016f500f3f9f958cc5461bd04297a51a0084d411582fae5e48c680981e2b8b0i0"
 ]
+
+

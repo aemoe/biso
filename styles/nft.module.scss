@@ -149,7 +149,6 @@
             outline: none;
             padding: 3px 15px;
             margin: 0 auto;
-            height: auto !important;
             cursor: pointer;
             &.grey {
               background: #8e8e8e;
@@ -174,17 +173,16 @@
       padding-bottom: 20px;
     }
     .mint {
-      padding-bottom: 50px;
       position: relative;
-      // &::before {
-      //   content: "";
-      //   position: absolute;
-      //   background: url(../public/stake/centerimg.png);
-      //   width: 670px;
-      //   height: 729px;
-      //   right: -40px;
-      //   top: 60px;
-      // }
+      &::before {
+        content: "";
+        position: absolute;
+        background: url(../public/stake/centerimg.png);
+        width: 670px;
+        height: 729px;
+        right: -40px;
+        top: 60px;
+      }
       .card {
         width: 592px;
         border-radius: 20px;

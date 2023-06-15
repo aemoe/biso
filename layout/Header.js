@@ -72,13 +72,22 @@ const Header = (props) => {
               Launchpad
             </li>
           </Link>
-          <Link href="/staking" passHref>
+          <Link href="/nft" passHref>
             <li
               className={cx({
                 active: activeIndex === 3,
               })}
             >
-              Stake
+              NFT
+            </li>
+          </Link>
+           <Link href="/staking" passHref>
+            <li
+              className={cx({
+                active: activeIndex === 4
+              })}
+            >
+              Staking
             </li>
           </Link>
           <a

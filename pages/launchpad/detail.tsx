@@ -903,6 +903,9 @@ const LaunchpadDetails = () => {
                   7% of the funds will be used as a platform service fee for
                   marketing purposes 🪙
                 </p>
+  <p className={styles.red}>
+   * Before participating in the launch, you must confirm that you are not located, incorporated, or a citizen or resident of the United States of America, People’s Republic of China, Bermuda, Burundi, Central African Republic, Cuba, Democratic Republic of Congo, Eritrea, Guinea-Bissau, Iran, Libya, Mali, North Korea, Palestine, Republic of Seychelles, Somalia, South Sudan, Sudan, Syria, Western Sahara, Yemen, Crimea and Sevastopol, or any other state, country, or jurisdiction where participation in this launch would be illegal according to applicable law.
+                </p>
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ export default function (sequelize, DataTypes) {
     confirm: DataTypes.STRING,
     rewards: DataTypes.STRING,
     userRewardPerTokenPaid: DataTypes.STRING,
+    projectID: DataTypes.STRING,
     ga: DataTypes.STRING,
     date: DataTypes.STRING,
     state: DataTypes.INTEGER,
