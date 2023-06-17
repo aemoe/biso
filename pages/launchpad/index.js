@@ -410,78 +410,118 @@ const Launchpad = () => {
 
           <div className={styles.current}>
             <div className={styles.banner}></div>
-            <div className={styles.curinfo}>
-              <div className={styles.contacts}>
-                <Link href="https://www.isekaiprotocol.com/" passHref>
-                  <a className={styles.item}>
-                    <Image
-                      src={address}
-                      alt="twitter"
-                      width={20}
-                      height={20}
-                    ></Image>
-                  </a>
-                </Link>
-                <Link href="https://twitter.com/isekaiprotocol" passHref>
-                  <a className={styles.item}>
-                    <Image
-                      src={twitter}
-                      alt="twitter"
-                      width={20}
-                      height={20}
-                    ></Image>
-                  </a>
-                </Link>
-                <Link href="https://discord.com/invite/tuxbNWqhmA" passHref>
-                  <a className={styles.item}>
-                    <Image
-                      src={discord}
-                      alt="discord"
-                      width={20}
-                      height={20}
-                    ></Image>
-                  </a>
-                </Link>
-                <Link href="https://medium.com/@isekaimetaverse" passHref>
-                  <a className={styles.item}>
-                    <Image
-                      src={medium}
-                      alt="medium"
-                      width={20}
-                      height={20}
-                    ></Image>
-                  </a>
-                </Link>
-              </div>
-              <div className={styles.title}>ISKA</div>
-              <div className={styles.subtitle}>BisoSwap</div>
-              <p className={styles.intro}>
-                Isekai Protocol is a pioneering AI-driven Web3 creator ecosystem
-                dedicated to the creation of ACGN (anime, comics, games, and
-                novels) content. By leveraging the power of AI and Web3
-                technology, Isekai Protocol enables users to unleash their
-                creative potential, generating derivative works from established
-                IPs while adhering to the principles of the Isekai Protocol,
-                fostering a dynamic NFT network that seamlessly connects
-                derivatives and originals. The platform offers AI-powered
-              </p>
-              <div className={styles.join}>
-                project in progress
-                <div className={styles.operate}>
-                  {/* <Link href="/launchpad/list" passHref> */}
-                  <button>
-                    Join <i></i>
-                  </button>
-                  {/* </Link> */}
-                  {/* <a href="#">
-                  Learn<i></i>
-                </a> */}
-                </div>
-              </div>
-            </div>
+            {projectList.map((item) => {
+              if(item.id == 2){
+                console.log("item", item)
+                return    <div className={styles.curinfo}>
+                            <div className={styles.contacts}>
+                              {/* <Link href="https://www.isekaiprotocol.com/" passHref>
+                                <a className={styles.item}>
+                                  <Image
+                                    src={address}
+                                    alt="twitter"
+                                    width={20}
+                                    height={20}
+                                  ></Image>
+                                </a>
+                              </Link> */}
+                              <Link href={item.twitter} passHref>
+                                <a className={styles.item}>
+                                  <Image
+                                    src={twitter}
+                                    alt="twitter"
+                                    width={20}
+                                    height={20}
+                                  ></Image>
+                                </a>
+                              </Link>
+                              <Link href={item.discord} passHref>
+                                <a className={styles.item}>
+                                  <Image
+                                    src={discord}
+                                    alt="discord"
+                                    width={20}
+                                    height={20}
+                                  ></Image>
+                                </a>
+                              </Link>
+                              <Link href={item.medium} passHref>
+                                <a className={styles.item}>
+                                  <Image
+                                    src={medium}
+                                    alt="medium"
+                                    width={20}
+                                    height={20}
+                                  ></Image>
+                                </a>
+                              </Link>
+                            </div>
+                            <div className={styles.title}>{item.title}</div>
+                            {/* <div className={styles.subtitle}>{item.title}</div> */}
+                            <p className={styles.intro}>
+                             {item.desc}
+                            </p>
+                            <div className={styles.join}>
+                              <Timer
+                    formatValue={(value) =>
+                      `${value < 10 ? `0${value}` : value} `
+                    }
+                    initialTime={
+                      new Date(1687179600 * 1000).getTime() - new Date().getTime()
+                    }
+                    lastUnit="h"
+                    direction="backward"
+                  >
+                    <ul>
+                      <li>
+                        <h1>
+                          <Timer.Days />
+                        </h1>
+                        <p>DAY</p>
+                      </li>
+                      <li>
+                        <h1>
+                          <Timer.Hours />
+                        </h1>
+                        <p>HRS</p>
+                      </li>
+                      <li>
+                        <h1>
+                          <Timer.Minutes />
+                        </h1>
+                        <p>MIN</p>
+                      </li>
+                      <li>
+                        <h1>
+                          <Timer.Seconds />
+                        </h1>
+                        <p>SEC</p>
+                      </li>
+                    </ul>
+                  </Timer>
+                              <div className={styles.operate}>
+                                {/* <Link href="/launchpad/list" passHref> */}
+                                <Link href={item.details} passHref>
+                                <button>
+                                  Join <i></i>
+                                </button>
+                                </Link>
+                                {/* </Link> */}
+                                {/* <a href="#">
+                                Learn<i></i>
+                              </a> */}
+                              </div>
+                            </div>
+                          </div>
+              }
+            })}
           </div>
           <div className={styles.list}>
-            {projectList.map((item) => ListItem(item))}
+            {projectList.map((item) => {
+              if(item.id != 2){
+                return ListItem(item)
+              }
+            })}
           </div>
         </div>
       </div>
