@@ -23,14 +23,16 @@ import {
   openBox,
   getRefundByAddress,
   refundBiso,
-  earnSpeed
+  earnSpeed,
 } from "../api/api";
 
-const receiveAddress  = ["bc1pyf6e4ysv00e84hwv5am07m2hfcsxs5l9q8zt6c6aj4aal03mh5xqe376p0"];
+const receiveAddress = [
+  "bc1pyf6e4ysv00e84hwv5am07m2hfcsxs5l9q8zt6c6aj4aal03mh5xqe376p0",
+];
 
 const StakePool = (props) => {
-  const { t } = useTranslation("common")
-  const router = useRouter()
+  const { t } = useTranslation("common");
+  const router = useRouter();
   const { projectID } = props;
 
   const [transferableBalance, setTransferableBalance] = useState(0);
@@ -77,12 +79,14 @@ const StakePool = (props) => {
           setOverallBalance(balanceData.data.data.detail[i].overallBalance);
         }
       }
-      const Inscriptions = await getInscriptionsByAddress(accounts[0],projectID);
+      const Inscriptions = await getInscriptionsByAddress(
+        accounts[0],
+        projectID
+      );
       console.log("Inscriptions", Inscriptions.inscriptions);
       let inscription1 = Inscriptions.inscriptions;
       const transferableInscriptions = await axios.get(
         `https://unisat.io/brc20-api-v2/address/${accounts[0]}/brc20/biso/transferable-inscriptions?limit=512&start=0`
-
       );
       console.log(transferableInscriptions.data.data.detail);
       const transferableInscription1 =
@@ -107,7 +111,7 @@ const StakePool = (props) => {
       setTransferableInscriptions(transferableInscriptions.data.data.detail);
       const earn = await earnSpeed(accounts[0], projectID);
       console.log("earn", earn.earn);
-      setMintNft(earn.earn)
+      setMintNft(earn.earn);
       const stakeBiso = await getStakeByAddress(accounts[0], projectID);
       console.log("stakeBiso", stakeBiso);
       setStakeBalance(stakeBiso.totalSupply);
@@ -139,9 +143,12 @@ const StakePool = (props) => {
   };
 
   const sendInscription = async (inscriptionId, amount) => {
-    if(new Date().getTime() / 1000  < 1686812400 || new Date().getTime() / 1000 > 1686913200){
-      toast.warning("Stake not start or already end.", toastConfig)
-      return
+    if (
+      new Date().getTime() / 1000 < 1686812400 ||
+      new Date().getTime() / 1000 > 1686913200
+    ) {
+      toast.warning("Stake not start or already end.", toastConfig);
+      return;
     }
     window.unisat.requestAccounts();
     let accounts = await window.unisat.getAccounts();
@@ -204,131 +211,127 @@ const StakePool = (props) => {
   };
 
   return (
-        <>
-        <ToastContainer />
-        <div className={classNames(styles.card, styles.hasmoon)}>
-          <div className={styles.cardTitle}>
-            <span>Stake $BISO</span> Earn $ARKS.
+    <>
+      <ToastContainer />
+      <div className={classNames(styles.card, styles.hasmoon)}>
+        <div className={styles.cardTitle}>
+          <span>Stake $BISO</span> Earn $ARKS.
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Total Reward</div>
+          <div className={classNames(styles.val, styles.ori)}>290000 $ARKS</div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Total Stake</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {totalStake} $BISO
           </div>
-           <div className={styles.props}>
-            <div className={styles.label}>Total Reward</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              290000 $ARKS
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>APR</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {(2500 / (totalStake * 0.01) / 7) * 365 * 100} %
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>Total Stake</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {totalStake} $BISO
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Total Balance</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {overallBalance} $BISO
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>APR</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {2500 / (totalStake * 0.01)  / 7 * 365 * 100} %
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Available Balance</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {availableBalance} $BISO
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>Total Balance</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {overallBalance} $BISO
-            </div>
-          </div>
-          <div className={styles.props}>
-            <div className={styles.label}>Available Balance</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {availableBalance} $BISO
-            </div>
-          </div>
-          <div className={styles.inputWrap}>
-            <input
-              type="text"
-              placeholder="Please Input Number"
-              value={transferValue}
-              onChange={(e) => setTransferValue(e.target.value)}
-            />
-            <button onClick={() => inscribeTransfer()}>
-              Inscribe Transfer
-            </button>
-          </div>
-          {/* <div className={styles.btn}>
+        </div>
+        <div className={styles.inputWrap}>
+          <input
+            type="text"
+            placeholder="Please Input Number"
+            value={transferValue}
+            onChange={(e) => setTransferValue(e.target.value)}
+          />
+          <button onClick={() => inscribeTransfer()}>Inscribe Transfer</button>
+        </div>
+        {/* <div className={styles.btn}>
           <button onClick={()=>inscribeTransfer()}>Inscribe Transfer</button>
         </div> */}
-          <div className={styles.props}>
-            <div className={styles.label}>Transferable Balance</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {transferableBalance} $BISO
-            </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Transferable Balance</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {transferableBalance} $BISO
           </div>
-          <ul className={styles.inscriptions}>
-            {buildInscriptions.map((inscription, index) => (
-              <li key={index}>
-                <h1>Unconfirmed</h1>
-                <h2>BISO</h2>
-                <h3>{inscription.amount}</h3>
-                <p>
-                  <button className={styles.grey}>Stake</button>
-                </p>
-              </li>
-            ))}
-            {transferableInscriptions.map((inscription, index) => (
-              <li key={index}>
-                <h1>#{inscription.inscriptionNumber}</h1>
-                <h2>BISO</h2>
-                <h3>{inscription.data.amt}</h3>
-                <p>
-                  <button
-                    onClick={() =>
-                      sendInscription(
-                        inscription.inscriptionId,
-                        inscription.data.amt
-                      )
-                    }
-                  >
-                    Stake
-                  </button>
-                </p>
-              </li>
-            ))}
-          </ul>
-          <div className={styles.cardTitle}>
-            <span>Mint</span> Info.
+        </div>
+        <ul className={styles.inscriptions}>
+          {buildInscriptions.map((inscription, index) => (
+            <li key={index}>
+              <h1>Unconfirmed</h1>
+              <h2>BISO</h2>
+              <h3>{inscription.amount}</h3>
+              <p>
+                <button className={styles.grey}>Stake</button>
+              </p>
+            </li>
+          ))}
+          {transferableInscriptions.map((inscription, index) => (
+            <li key={index}>
+              <h1>#{inscription.inscriptionNumber}</h1>
+              <h2>BISO</h2>
+              <h3>{inscription.data.amt}</h3>
+              <p>
+                <button
+                  onClick={() =>
+                    sendInscription(
+                      inscription.inscriptionId,
+                      inscription.data.amt
+                    )
+                  }
+                >
+                  Stake
+                </button>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div className={styles.cardTitle}>
+          <span>Mint</span> Info.
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>My Stake Amount</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {stakeBalance} $BISO
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>My Stake Amount</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {stakeBalance} $BISO
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Already Mint Amount</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            {mintNft} ARKS
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>Already Mint Amount</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              {mintNft} AKRS
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Stake Time</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            2023.6.15 15:00 - 2023.6.16 19:00
           </div>
-          <div className={styles.props}>
-            <div className={styles.label}>Stake Time</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              2023.6.15 15:00 - 2023.6.16 19:00
-            </div>
+        </div>
+        <div className={styles.props}>
+          <div className={styles.label}>Mint Time</div>
+          <div className={classNames(styles.val, styles.ori)}>
+            2023.6.16 19:00 - 2023.6.23 19:00
           </div>
-           <div className={styles.props}>
-            <div className={styles.label}>Mint Time</div>
-            <div className={classNames(styles.val, styles.ori)}>
-              2023.6.16 19:00 - 2023.6.23 19:00
-            </div>
-          </div>
-          <p>
-            It will be automatically refunded to your account within 12 hours of completion.
-          </p>
-          {/* <p>
+        </div>
+        <p>
+          It will be automatically refunded to your account within 12 hours of
+          completion.
+        </p>
+        {/* <p>
             <button onClick={() => refund()}>Withdraw</button>
           </p> */}
-        </div>
-        </>
+      </div>
+    </>
   );
-
-}
+};
 
 const Stake = () => {
   return (
@@ -344,7 +347,7 @@ const Stake = () => {
                 Earn $$$
               </div>
               <div>
-                <StakePool projectID = "2" />
+                <StakePool projectID="2" />
               </div>
             </div>
           </div>
