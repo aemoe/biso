@@ -469,7 +469,7 @@ const Launchpad = () => {
                     initialTime={
                       new Date(1687179600 * 1000).getTime() - new Date().getTime()
                     }
-                    lastUnit="h"
+                    lastUnit="d"
                     direction="backward"
                   >
                     <ul>
