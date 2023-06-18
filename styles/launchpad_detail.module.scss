@@ -76,6 +76,17 @@
         background: #fff url(../public/launchpad/project3.png) no-repeat
           center/auto 100%;
       }
+      .banneredo {
+        width: 552px;
+        height: 340px;
+        flex-shrink: 0;
+        background-color: #cfcfcf;
+        border: 1px solid #cfcfcf;
+        border-radius: 20px;
+        margin-right: 20px;
+        background: #fff url(../public/launchpad/edoBanner.jpg) no-repeat
+          center/auto 100%;
+      }
       .info {
         display: flex;
         flex-direction: column;
@@ -322,7 +333,7 @@
           font-size: 12px;
           color: #64708b;
           margin-bottom: 10px;
-          &.red{
+          &.red {
             color: #ee492e;
           }
         }
