@@ -411,11 +411,12 @@ const Launchpad = () => {
           <div className={styles.current}>
             <div className={styles.banner}></div>
             {projectList.map((item) => {
-              if(item.id == 2){
-                console.log("item", item)
-                return    <div className={styles.curinfo}>
-                            <div className={styles.contacts}>
-                              {/* <Link href="https://www.isekaiprotocol.com/" passHref>
+              if (item.id == 2) {
+                console.log("item", item);
+                return (
+                  <div className={styles.curinfo}>
+                    <div className={styles.contacts}>
+                      {/* <Link href="https://www.isekaiprotocol.com/" passHref>
                                 <a className={styles.item}>
                                   <Image
                                     src={address}
@@ -425,101 +426,101 @@ const Launchpad = () => {
                                   ></Image>
                                 </a>
                               </Link> */}
-                              <Link href={item.twitter} passHref>
-                                <a className={styles.item}>
-                                  <Image
-                                    src={twitter}
-                                    alt="twitter"
-                                    width={20}
-                                    height={20}
-                                  ></Image>
-                                </a>
-                              </Link>
-                              <Link href={item.discord} passHref>
-                                <a className={styles.item}>
-                                  <Image
-                                    src={discord}
-                                    alt="discord"
-                                    width={20}
-                                    height={20}
-                                  ></Image>
-                                </a>
-                              </Link>
-                              <Link href={item.medium} passHref>
-                                <a className={styles.item}>
-                                  <Image
-                                    src={medium}
-                                    alt="medium"
-                                    width={20}
-                                    height={20}
-                                  ></Image>
-                                </a>
-                              </Link>
-                            </div>
-                            <div className={styles.title}>{item.title}</div>
-                            {/* <div className={styles.subtitle}>{item.title}</div> */}
-                            <p className={styles.intro}>
-                             {item.desc}
-                            </p>
-                            <div className={styles.join}>
-                              <Timer
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value} `
-                    }
-                    initialTime={
-                      new Date(1687179600 * 1000).getTime() - new Date().getTime()
-                    }
-                    lastUnit="d"
-                    direction="backward"
-                  >
-                    <ul>
-                      <li>
-                        <h1>
-                          <Timer.Days />
-                        </h1>
-                        <p>DAY</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Hours />
-                        </h1>
-                        <p>HRS</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Minutes />
-                        </h1>
-                        <p>MIN</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Seconds />
-                        </h1>
-                        <p>SEC</p>
-                      </li>
-                    </ul>
-                  </Timer>
-                              <div className={styles.operate}>
-                                {/* <Link href="/launchpad/list" passHref> */}
-                                <Link href={item.details} passHref>
-                                <button>
-                                  Join <i></i>
-                                </button>
-                                </Link>
-                                {/* </Link> */}
-                                {/* <a href="#">
+                      <Link href={item.twitter} passHref>
+                        <a className={styles.item}>
+                          <Image
+                            src={twitter}
+                            alt="twitter"
+                            width={20}
+                            height={20}
+                          ></Image>
+                        </a>
+                      </Link>
+                      <Link href={item.discord} passHref>
+                        <a className={styles.item}>
+                          <Image
+                            src={discord}
+                            alt="discord"
+                            width={20}
+                            height={20}
+                          ></Image>
+                        </a>
+                      </Link>
+                      <Link href={item.medium} passHref>
+                        <a className={styles.item}>
+                          <Image
+                            src={medium}
+                            alt="medium"
+                            width={20}
+                            height={20}
+                          ></Image>
+                        </a>
+                      </Link>
+                    </div>
+                    <div className={styles.title}>{item.title}</div>
+                    {/* <div className={styles.subtitle}>{item.title}</div> */}
+                    <p className={styles.intro}>{item.desc}</p>
+                    <div className={styles.join}>
+                      <Timer
+                        formatValue={(value) =>
+                          `${value < 10 ? `0${value}` : value} `
+                        }
+                        initialTime={
+                          new Date(1687179600 * 1000).getTime() -
+                          new Date().getTime()
+                        }
+                        lastUnit="d"
+                        direction="backward"
+                      >
+                        <ul>
+                          <li>
+                            <h1>
+                              <Timer.Days />
+                            </h1>
+                            <p>DAY</p>
+                          </li>
+                          <li>
+                            <h1>
+                              <Timer.Hours />
+                            </h1>
+                            <p>HRS</p>
+                          </li>
+                          <li>
+                            <h1>
+                              <Timer.Minutes />
+                            </h1>
+                            <p>MIN</p>
+                          </li>
+                          <li>
+                            <h1>
+                              <Timer.Seconds />
+                            </h1>
+                            <p>SEC</p>
+                          </li>
+                        </ul>
+                      </Timer>
+                      <div className={styles.operate}>
+                        {/* <Link href="/launchpad/list" passHref> */}
+                        <Link href={item.details} passHref>
+                          <button>
+                            Join <i></i>
+                          </button>
+                        </Link>
+                        {/* </Link> */}
+                        {/* <a href="#">
                                 Learn<i></i>
                               </a> */}
-                              </div>
-                            </div>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
+                );
               }
             })}
           </div>
           <div className={styles.list}>
             {projectList.map((item) => {
-              if(item.id != 2){
-                return ListItem(item)
+              if (item.id != 2) {
+                return ListItem(item);
               }
             })}
           </div>
