@@ -739,10 +739,10 @@ const LaunchpadDetails = () => {
                   leading to significant scalability issues due to data access
                   challenges. Furthermore, the absence of proper data validation
                   prior to usage can result in hazardous data inconsistencies.
-                  To establish a trustless and secure infrastructure for Web3's
-                  data future, addressing these issues regarding data access and
-                  validity is essential. This is where Edohigan Network steps
-                  into the picture.
+                  To establish a trustless and secure infrastructure for
+                  Web3&apos;s data future, addressing these issues regarding
+                  data access and validity is essential. This is where Edohigan
+                  Network steps into the picture.
                 </p>
                 <div className={styles.title}>IDO - 45%</div>
                 <p>
