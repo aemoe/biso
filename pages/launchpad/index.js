@@ -58,7 +58,7 @@ const Launchpad = () => {
       banner: edoBanner,
       avatar: edoAvatar,
       hot: true,
-      details: "/launchpad",
+      details: "/launchpad/detail4",
       twitter: "https://twitter.com/Edohigan_NW",
       medium: null,
       telegram: null,

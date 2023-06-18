@@ -83,9 +83,9 @@ const LaunchpadDetails = () => {
           show: false,
         },
         data: [
-          { value: 250000000, name: "IDO" },
-          { value: 2250000000, name: "team" },
-          { value: 2500000000, name: "business incentives" },
+          { value: 250000000, name: "Team" },
+          { value: 2250000000, name: "IDO" },
+          { value: 2500000000, name: "Business incentives" },
         ],
       },
     ],
@@ -749,9 +749,7 @@ const LaunchpadDetails = () => {
                   45% Will be used for IDO activities, tokens will be
                   distributed to investors and holders through the IDO process.
                 </p>
-                <div className={styles.title}>
-                  support the sustainable development of the token ecology - 50%
-                </div>
+                <div className={styles.title}>Business incentives - 50%</div>
                 <p>
                   50% In order to support the sustainable development of the
                   token ecology, 50% of the token supply will be allocated to
@@ -760,7 +758,7 @@ const LaunchpadDetails = () => {
                   platforms and projects to continuously promote the development
                   of the entire ecosystem.
                 </p>
-                <div className={styles.title}>team members - 5%</div>
+                <div className={styles.title}>Team members - 5%</div>
                 <p>
                   5% Will be assigned to team members for use during project
                   development. These tokens usually have a lock-up period, and
