@@ -51,13 +51,26 @@ const Launchpad = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const projects = [
+     {
+      id: 13,
+      title: "Edohigan",
+      desc: `The Edohigan Network provides fast and easy-to-use tools that enable decentralized data validation, immutability and retrieval, empowering developers and data engineers to access reliable data they can use to build the future of Web3 with confidence.`,
+      banner: edoBanner,
+      avatar: edoAvatar,
+      hot: true,
+      details: "/launchpad",
+      twitter: "https://twitter.com/Edohigan_NW",
+      medium: null,
+      telegram: null,
+      discord: "https://discord.gg/C8Fqem6KaQ",
+    },
     {
       id: 1,
       title: "TBWS",
       desc: `Three-body Warrior is a WEB3 game, based on the BRC20 protocol ARPG + MOBA game, the game story takes place in 2272 and now, the three-body man from the future takes over the governance of the earth in an all-round way, through the game system, each player can have an immersive experience. The form of the earth in the metaverse period and participate in various governances. At the same time, you can get income in the game, and you can also convert the income into real value, (legal currency). A global team based in the United States and South Korea provides support for game development. Product features include NFT mall, game center, Defi module, incentives, and personal center.`,
       banner: project1,
       avatar: avatar1,
-      hot: true,
+      hot: false,
       details: "/launchpad/detail1",
       twitter: "https://twitter.com/3bodywarriors",
       medium: "http://threebodywarriors.medium.com",
@@ -70,7 +83,7 @@ const Launchpad = () => {
       desc: `Isekai Protocol is a pioneering AI-driven Web3 creator ecosystem dedicated to the creation of ACGN (anime, comics, games, and novels) content. By leveraging the power of AI and Web3 technology, Isekai Protocol enables users to unleash their creative potential, generating derivative works from established IPs while adhering to the principles of the Isekai Protocol, fostering a dynamic NFT network that seamlessly connects derivatives and originals. The platform offers AI-powered creator tools, including a visual novel maker to enable immersive storytelling experiences. Moreover, the derivative creation royalty system ensures owners and creators of NFTs integrated into derivative works receive a fair share of profits when such creations achieve success. By establishing a bottom-up ACGN content creation ecosystem, Isekai aims to revolutionize the way content is created, shared, and monetized. `,
       banner: project2,
       avatar: project2,
-      hot: false,
+      hot: true,
       details: "/launchpad/detail2",
       twitter: "https://twitter.com/isekaiprotocol",
       medium: "https://medium.com/@isekaimetaverse",
@@ -209,19 +222,6 @@ const Launchpad = () => {
       medium: null,
       telegram: null,
       discord: null,
-    },
-    {
-      id: 13,
-      title: "Edohigan",
-      desc: `The Edohigan Network provides fast and easy-to-use tools that enable decentralized data validation, immutability and retrieval, empowering developers and data engineers to access reliable data they can use to build the future of Web3 with confidence.`,
-      banner: edoBanner,
-      avatar: edoAvatar,
-      hot: false,
-      details: "/launchpad",
-      twitter: "https://twitter.com/Edohigan_NW",
-      medium: null,
-      telegram: null,
-      discord: "https://discord.gg/C8Fqem6KaQ",
     },
   ];
 
