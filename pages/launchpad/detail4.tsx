@@ -123,7 +123,7 @@ const LaunchpadDetails = () => {
     },
   ];
 
-  const [tokenPrice, setTokenPrice] = useState("0.00000000978");
+  const [tokenPrice, setTokenPrice] = useState("0.000000000978");
   const [percentage, setPercentage] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [whitelistActualAmount, setWhitelistActualAmount] = useState(0);
