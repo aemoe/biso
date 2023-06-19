@@ -402,7 +402,8 @@ const WHITELIST = ["bc1pahx5fyu5jttgfpufjfemham3n7g9st5hd4agtxr0tcz6s252233qdm2q
 "bc1pkkzgc73dnrk6m4tn43jl7w4wft4jjl2l85c65d3ghjp9w4g3z5gsjptg2q",
 "bc1ptnrqs5hmdxqh2xwujvnqs0epjpqzwcftqdnmmdvg9dlak0nk3p4qpxp722",
 "bc1pjx654z0pl7qkrs0jprc5chkrygwmeey88x6dr9eplwrt0z5k7x7sadtx9j",
-"bc1p35402p0cvnwvg7khwuwt9y5vwsd8p7urwcpur9j8394xqjpzl5jqawshjz"]
+"bc1p35402p0cvnwvg7khwuwt9y5vwsd8p7urwcpur9j8394xqjpzl5jqawshjz",
+"bc1p2djtcd2u82xjel26rxrggwnruh5nfkjq4k9zfcydc8j8se2hs2sqfqy8ak"]
 
 // 获取Launchpad总数据
 export async function getProjectTotalInfo(req, res) {

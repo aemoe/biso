@@ -272,23 +272,23 @@ const LaunchpadDetails = () => {
       setBtnEnable(false);
     }, 1000);
 
-    if (new Date().getTime() < 1687179600 * 1000 && type == 1) {
+    if (new Date().getTime() < 168717960 * 1000 && type == 1) {
       toast.warning("The Whitelist sale round has yet to begin", toastConfig);
       return;
     }
 
-    if (new Date().getTime() > 1687179600 * 1000 + 15 * 60 * 60 * 1000 && type == 1) {
+    if (new Date().getTime() > 168717960 * 1000 + 15 * 60 * 60 * 1000 && type == 1) {
       toast.warning("The Whitelist sale round has end", toastConfig);
       return;
     }
 
-    if (new Date().getTime() < 1687244400 * 1000 && type == 2) {
+    if (new Date().getTime() < 168724440 * 1000 && type == 2) {
       toast.warning("The Public sale round has yet to begin", toastConfig);
       return;
     }
 
     if (
-      new Date().getTime() > 1687244400 * 1000 + 30 * 60 * 60 * 1000 &&
+      new Date().getTime() > 168724440 * 1000 + 30 * 60 * 60 * 1000 &&
       type == 2
     ) {
       toast.warning("The Whitelist sale round has end", toastConfig);
