@@ -652,13 +652,13 @@ const LaunchpadDetails = () => {
                   <div>Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
-                  {new Date().getTime() < 168724440 * 1000 ? (
+                  {new Date().getTime() < 16872444 * 1000 ? (
                     <Timer
                       formatValue={(value) =>
                         `${value < 10 ? `0${value}` : value} `
                       }
                       initialTime={
-                        new Date(168724440 * 1000).getTime() -
+                        new Date(16872444 * 1000).getTime() -
                         new Date().getTime()
                       }
                       lastUnit="d"
