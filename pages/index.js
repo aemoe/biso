@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
+import Link from "next/link";
 import styles from "../styles/home.module.scss";
 
 import "animate.css";
@@ -167,7 +167,7 @@ const Home = () => {
                 </li>
               </ul>
               <div className={styles.opr}>
-                <button className={styles.oribtn}>Stake Now</button>
+                <Link href="/staking"><button className={styles.oribtn}>Stake Now</button></Link>
                 <button className={styles.btn}>Learn</button>
               </div>
             </div>
@@ -191,7 +191,7 @@ const Home = () => {
                 </li>
               </ul>
               <div className={styles.opr}>
-                <button className={styles.oribtn}>Stake Now</button>
+                <Link href="/launchpad"><button className={styles.oribtn}>Launch Now</button></Link>
                 <button className={styles.btn}>Learn</button>
               </div>
             </div>
