@@ -411,7 +411,7 @@ const Launchpad = () => {
           <div className={styles.current}>
             <div className={styles.banner}></div>
             {projectList.map((item) => {
-              if (item.id == 2) {
+              if (item.id ==13) {
                 console.log("item", item);
                 return (
                   <div className={styles.curinfo}>
@@ -446,7 +446,7 @@ const Launchpad = () => {
                           ></Image>
                         </a>
                       </Link>
-                      <Link href={item.medium} passHref>
+                      {/* <Link href={item.medium} passHref>
                         <a className={styles.item}>
                           <Image
                             src={medium}
@@ -455,7 +455,7 @@ const Launchpad = () => {
                             height={20}
                           ></Image>
                         </a>
-                      </Link>
+                      </Link> */}
                     </div>
                     <div className={styles.title}>{item.title}</div>
                     {/* <div className={styles.subtitle}>{item.title}</div> */}
@@ -519,7 +519,7 @@ const Launchpad = () => {
           </div>
           <div className={styles.list}>
             {projectList.map((item) => {
-              if (item.id != 2) {
+              if (item.id !=13) {
                 return ListItem(item);
               }
             })}
