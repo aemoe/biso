@@ -186,8 +186,8 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     let txid = await window.unisat.sendBitcoin(
-      "bc1p9vwjd0ts8lydmj03r9mqy2ccsrjwkdlt6yg807dph4fynn7u7c2s8ds30v",
-      utils.parseUnits(String(0.00037037), 8) * 1,
+      "bc1p0sw8vdvruk8f37fckumueudehtcfefm7unyl68hm68gqxawmd3ws5wswpw",
+      utils.parseUnits(String(0.0008), 8) * 1,
       {
         feeRate: data.halfHourFee,
       }
@@ -197,7 +197,7 @@ const StakePool = (props) => {
       await refundBiso(accounts[0], txid);
       toast.success("Payment success", toastConfig);
     }
-    updateBalance();
+    // updateBalance();
   };
 
   const toastConfig = {
@@ -325,9 +325,9 @@ const StakePool = (props) => {
           It will be automatically refunded to your account within 12 hours of
           completion.
         </p>
-        {/* <p>
+        <p>
             <button onClick={() => refund()}>Withdraw</button>
-          </p> */}
+          </p>
       </div>
     </>
   );
