@@ -152,8 +152,8 @@ const LaunchpadDetails = () => {
 
   const wallet = [
     "",
-    "bc1pu06pldh0l3pky9vzucgc86yjarrkct0c7tnp6yyztqgts49xvyeqr9mfkv",
-    "bc1plwvzy06s0axy50ahn5g8dtgntjmkua8qkfed2ysupcvr7fjhk9mqzcjmrl",
+    "bc1pxa38vgrjdrz4msxc64rkh6hs7hz8rkapmh35q7hvevvp25prxrlsa64kze",
+    "bc1pm4e4ndufx4dy3hvnpkj24rkdepeul9wc2tzkec59r5s0fh7ppxtsx2n548",
   ];
 
   useEffect(() => {
@@ -199,7 +199,7 @@ const LaunchpadDetails = () => {
             0.0000000034;
       setWhitelistObtained(WhitelistObtained);
 
-      const publicTotalSale = await getAmountByAddress(accounts[0], 1, 2);
+      const publicTotalSale = await getAmountByAddress(accounts[0], 4, 2);
       setMyPublicBtc(publicTotalSale.data.totalBuy);
       console.log("publicTotalSale", publicTotalSale);
       const publicObtained =
@@ -221,7 +221,7 @@ const LaunchpadDetails = () => {
   };
   const setMax = async (value: number, type: number) => {
     let accounts = await window.unisat.getAccounts();
-    const totalSale = await getAmountByAddress(accounts[0], 1, type);
+    const totalSale = await getAmountByAddress(accounts[0], 4, type);
     console.log("totalSale11", totalSale.data.totalBuy);
     if (type == 1) {
       setWhitelistInput(
@@ -258,21 +258,21 @@ const LaunchpadDetails = () => {
       return;
     }
 
-    if (new Date().getTime() < 1687698000 * 1000 && type == 2) {
-      toast.warning("The Public sale round has yet to begin", toastConfig);
-      return;
-    }
-
     if (
-      new Date().getTime() > 1687698000 * 1000 + 12 * 60 * 60 * 1000 &&
+      new Date().getTime() > 1687752000 * 1000 + 12 * 60 * 60 * 1000 &&
       type == 1
     ) {
       toast.warning("The Whitelist sale round has end", toastConfig);
       return;
     }
 
+    if (new Date().getTime() < 1687762800 * 1000 && type == 2) {
+      toast.warning("The Public sale round has yet to begin", toastConfig);
+      return;
+    }
+
     if (
-      new Date().getTime() > 1687698000 * 1000 + 12 * 60 * 60 * 1000 &&
+      new Date().getTime() > 1687870800 * 1000 + 12 * 60 * 60 * 1000 &&
       type == 2
     ) {
       toast.warning("The Whitelist sale round has end", toastConfig);
@@ -292,7 +292,7 @@ const LaunchpadDetails = () => {
 
     let accounts = await window.unisat.requestAccounts();
 
-    const whitelistInputSale = await getAmountByAddress(accounts[0], 1, 1);
+    const whitelistInputSale = await getAmountByAddress(accounts[0], 4, 1);
     if (
       type == 1 &&
       whitelistInputSale.data.totalBuy * 1 + whitelistInput * 1 > 0.077
@@ -304,7 +304,7 @@ const LaunchpadDetails = () => {
       return;
     }
 
-    const publicInputSale = await getAmountByAddress(accounts[0], 1, 2);
+    const publicInputSale = await getAmountByAddress(accounts[0], 4, 2);
     console.log("publicInputSale", publicInputSale);
     if (
       type == 2 &&
@@ -340,7 +340,7 @@ const LaunchpadDetails = () => {
         utils.parseUnits(String(whitelistInput), 8).add("80000").toString() * 1;
       let txid = await window.unisat.sendBitcoin(wallet[type], inputValue);
       if (txid) {
-        const res = await mintSale(accounts[0], txid, type, whitelistInput, 1);
+        const res = await mintSale(accounts[0], txid, type, whitelistInput, 4);
         console.log("res", res);
         toast.success("Payment success", toastConfig);
       }
@@ -349,7 +349,7 @@ const LaunchpadDetails = () => {
         utils.parseUnits(String(publicInput), 8).add("80000").toString() * 1;
       let txid = await window.unisat.sendBitcoin(wallet[type], inputValue);
       if (txid) {
-        const res = await mintSale(accounts[0], txid, type, publicInput, 1);
+        const res = await mintSale(accounts[0], txid, type, publicInput, 4);
         console.log("res", res);
         toast.success("Payment success", toastConfig);
       }
