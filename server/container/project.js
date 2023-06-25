@@ -44,6 +44,7 @@ PROJECT_IDO.belongsTo(PROJECT, {
 })
 
 const WHITELIST = [
+  "bc1pyf6e4ysv00e84hwv5am07m2hfcsxs5l9q8zt6c6aj4aal03mh5xqe376p0"
 ]
 
 // 获取Launchpad总数据
