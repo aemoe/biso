@@ -253,11 +253,7 @@ const LaunchpadDetails = () => {
       setBtnEnable(false);
     }, 1000);
 
-    // if (new Date().getTime() < 1687698000 * 1000 && type == 1) {
-    //   toast.warning("The Whitelist sale round has yet to begin", toastConfig);
-    //   return;
-    // }
-    if (new Date().getTime() > 1000 && type == 1) {
+    if (new Date().getTime() < 1687698000 * 1000 && type == 1) {
       toast.warning("The Whitelist sale round has yet to begin", toastConfig);
       return;
     }
@@ -270,12 +266,7 @@ const LaunchpadDetails = () => {
       return;
     }
 
-    // if (new Date().getTime() < 1687762800 * 1000 && type == 2) {
-    //   toast.warning("The Public sale round has yet to begin", toastConfig);
-    //   return;
-    // }
-
-    if (new Date().getTime() > 1000 && type == 2) {
+    if (new Date().getTime() < 1687762800 * 1000 && type == 2) {
       toast.warning("The Public sale round has yet to begin", toastConfig);
       return;
     }
@@ -445,7 +436,7 @@ const LaunchpadDetails = () => {
                   <div>Whitelist Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
-                  {/* {new Date().getTime() < 1687698000 * 1000 ? (
+                  {new Date().getTime() < 1687698000 * 1000 ? (
                     <Timer
                       formatValue={(value) =>
                         `${value < 10 ? `0${value}` : value} `
@@ -523,42 +514,7 @@ const LaunchpadDetails = () => {
                         </li>
                       </ul>
                     </Timer>
-                  )} */}
-                  <Timer
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value} `
-                    }
-                    initialTime={0}
-                    lastUnit="d"
-                    direction="backward"
-                  >
-                    <ul>
-                      <li>
-                        <h1>
-                          <Timer.Days />
-                        </h1>
-                        <p>DAY</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Hours />
-                        </h1>
-                        <p>HRS</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Minutes />
-                        </h1>
-                        <p>MIN</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Seconds />
-                        </h1>
-                        <p>SEC</p>
-                      </li>
-                    </ul>
-                  </Timer>
+                  )}
                 </div>
               </div>
               <div className={styles.list}>
@@ -659,7 +615,7 @@ const LaunchpadDetails = () => {
                   <div>Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
-                  {/* {new Date().getTime() < 1687762800 * 1000 ? (
+                  {new Date().getTime() < 1687762800 * 1000 ? (
                     <Timer
                       formatValue={(value) =>
                         `${value < 10 ? `0${value}` : value} `
@@ -737,42 +693,7 @@ const LaunchpadDetails = () => {
                         </li>
                       </ul>
                     </Timer>
-                  )} */}
-                  <Timer
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value} `
-                    }
-                    initialTime={0}
-                    lastUnit="d"
-                    direction="backward"
-                  >
-                    <ul>
-                      <li>
-                        <h1>
-                          <Timer.Days />
-                        </h1>
-                        <p>DAY</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Hours />
-                        </h1>
-                        <p>HRS</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Minutes />
-                        </h1>
-                        <p>MIN</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Seconds />
-                        </h1>
-                        <p>SEC</p>
-                      </li>
-                    </ul>
-                  </Timer>
+                  )}
                 </div>
               </div>
               <div className={styles.list}>
