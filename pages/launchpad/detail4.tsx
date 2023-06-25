@@ -173,11 +173,11 @@ const LaunchpadDetails = () => {
     publicAmount = 16.5;
 
   const update = async () => {
-    const totalWhitelistSale = await getTotalSale(5, 1);
+    const totalWhitelistSale = await getTotalSale(4, 1);
     console.log("totalSale", totalWhitelistSale.data);
     setWhitelistFundraisers(totalWhitelistSale.data.totalUsers);
     setWhitelistActualAmount(totalWhitelistSale.data.totalSale);
-    const totalPublicSale = await getTotalSale(5, 2);
+    const totalPublicSale = await getTotalSale(4, 2);
     console.log("totalPublicSale", totalPublicSale.data);
     setFundraisers(totalPublicSale.data.totalUsers);
     setActualAmount(totalPublicSale.data.totalSale);
