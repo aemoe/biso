@@ -218,7 +218,7 @@ const StakePool = (props) => {
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Reward</div>
-          <div className={classNames(styles.val, styles.ori)}>290000 ${name}</div>
+          <div className={classNames(styles.val, styles.ori)}>500000 ${name}</div>
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Stake</div>
@@ -347,7 +347,7 @@ const Stake = () => {
               </div>
               <div className={styles.projects}>    
                 <StakePool projectID="3" name="TBWS" isOver={false} />
-                <StakePool projectID="2" name="ARKS" isOver={true} />
+                {/* <StakePool projectID="2" name="ARKS" isOver={true} /> */}
               </div>
             </div>
           </div>
