@@ -33,7 +33,7 @@ const receiveAddress = [
 const StakePool = (props) => {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { projectID } = props;
+  const { projectID, name, isOver } = props;
 
   const [transferableBalance, setTransferableBalance] = useState(0);
   const [availableBalance, setAvailableBalance] = useState(0);
@@ -212,14 +212,13 @@ const StakePool = (props) => {
 
   return (
     <>
-      <ToastContainer />
-      <div className={classNames(styles.card, styles.hasmoon)}>
+      <div className={classNames(styles.card, styles.hasmoon)} style={{"opacity": !isOver? 1:0.4}}>
         <div className={styles.cardTitle}>
-          <span>Stake $BISO</span> Earn $ARKS.
+          <span>Stake $BISO</span> Earn ${name}.
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Reward</div>
-          <div className={classNames(styles.val, styles.ori)}>290000 $ARKS</div>
+          <div className={classNames(styles.val, styles.ori)}>290000 ${name}</div>
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Stake</div>
@@ -306,7 +305,7 @@ const StakePool = (props) => {
         <div className={styles.props}>
           <div className={styles.label}>Already Mint Amount</div>
           <div className={classNames(styles.val, styles.ori)}>
-            {mintNft} ARKS
+            {mintNft} {name}
           </div>
         </div>
         <div className={styles.props}>
@@ -346,8 +345,9 @@ const Stake = () => {
                 <br />
                 Earn $$$
               </div>
-              <div>
-                <StakePool projectID="2" />
+              <div className={styles.projects}>    
+                <StakePool projectID="3" name="TBWS" isOver={false} />
+                <StakePool projectID="2" name="ARKS" isOver={true} />
               </div>
             </div>
           </div>
