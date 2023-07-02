@@ -27,7 +27,7 @@ import {
 } from "../api/api";
 
 const receiveAddress = [
-  "bc1pyf6e4ysv00e84hwv5am07m2hfcsxs5l9q8zt6c6aj4aal03mh5xqe376p0",
+  "bc1pxuzwjt7efr5hvrxr2eqm23vvw6cu35479u3smhsg44spydl4jfsq0yflrm",
 ];
 
 const StakePool = (props) => {
@@ -144,8 +144,8 @@ const StakePool = (props) => {
 
   const sendInscription = async (inscriptionId, amount) => {
     if (
-      new Date().getTime() / 1000 < 1686812400 ||
-      new Date().getTime() / 1000 > 1686913200
+      new Date().getTime() / 1000 < 1688295600 ||
+      new Date().getTime() / 1000 > 1688468400
     ) {
       toast.warning("Stake not start or already end.", toastConfig);
       return;
@@ -186,7 +186,7 @@ const StakePool = (props) => {
       `https://mempool.space/api/v1/fees/recommended`
     );
     let txid = await window.unisat.sendBitcoin(
-      "bc1p0sw8vdvruk8f37fckumueudehtcfefm7unyl68hm68gqxawmd3ws5wswpw",
+      "bc1pxuzwjt7efr5hvrxr2eqm23vvw6cu35479u3smhsg44spydl4jfsq0yflrm",
       utils.parseUnits(String(0.0008), 8) * 1,
       {
         feeRate: data.halfHourFee,
