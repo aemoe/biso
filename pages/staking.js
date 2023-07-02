@@ -311,13 +311,13 @@ const StakePool = (props) => {
         <div className={styles.props}>
           <div className={styles.label}>Stake Time</div>
           <div className={classNames(styles.val, styles.ori)}>
-            2023.6.15 15:00 - 2023.6.16 19:00
+            2023.7.2 19:00 - 2023.7.4 19:00
           </div>
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Mint Time</div>
           <div className={classNames(styles.val, styles.ori)}>
-            2023.6.16 19:00 - 2023.6.23 19:00
+           2023.7.4 19:00 - 2023.7.11 19:00
           </div>
         </div>
         <p>
