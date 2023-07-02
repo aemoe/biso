@@ -109,10 +109,9 @@ const StakePool = (props) => {
       setBuildInscriptions(inscription1);
 
       setTransferableInscriptions(transferableInscriptions.data.data.detail);
-      // const earn = await earnSpeed(accounts[0], projectID);
-      // console.log("earn", earn.earn);
-      // setMintNft(earn.earn);
-      setMintNft(0);
+      const earn = await earnSpeed(accounts[0], projectID);
+      console.log("earn", earn.earn);
+      setMintNft(earn.earn);
       const stakeBiso = await getStakeByAddress(accounts[0], projectID);
       console.log("stakeBiso", stakeBiso);
       setStakeBalance(stakeBiso.totalSupply);

@@ -442,15 +442,17 @@ export async function earnSpeed(req, res) {
       code: 1,
       earn: 0
     });
-  }
-  const lastDate = Math.min((new Date().getTime()) / 1000 , endTime)
-  const earn = 290000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( lastDate - startTime )
+  }else{
+    const lastDate = Math.min((new Date().getTime()) / 1000 , endTime)
+    const earn = 500000 * myStake * 1 / (totalSupply * 1) / (endTime - startTime) * ( lastDate - startTime )
 
-  res.send({
-      msg: "Success",
-      code: 1,
-      earn: earn
-    });
+    res.send({
+        msg: "Success",
+        code: 1,
+        earn: earn
+      });
+  }
+ 
 }
 
 export async function rewardPerToken() {
