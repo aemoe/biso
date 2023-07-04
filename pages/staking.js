@@ -229,7 +229,7 @@ const StakePool = (props) => {
         <div className={styles.props}>
           <div className={styles.label}>APR</div>
           <div className={classNames(styles.val, styles.ori)}>
-            {(2500 / (totalStake * 0.01) / 7) * 365 * 100} %
+            {(3000 / (totalStake * 0.003) / 7) * 365 * 100} %
           </div>
         </div>
         <div className={styles.props}>

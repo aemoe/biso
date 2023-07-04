@@ -110,7 +110,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     },
   ];
 
-  const [tokenPrice, setTokenPrice] = useState(0.00000135);
+  const [tokenPrice, setTokenPrice] = useState(0.33);
   const [percentage, setPercentage] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [whitelistActualAmount, setWhitelistActualAmount] = useState(0);
@@ -133,8 +133,8 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
   const [btnEnable, setBtnEnable] = useState(false);
   const [whitelistInput, setWhitelistInput] = useState(0.01);
   const [publicInput, setPublicInput] = useState(0.01);
-  const [myWhitelistBtc, setMyWhitelistBtc] = useState(0);
-  const [myPublicBtc, setMyPublicBtc] = useState(0);
+  const [myWhitelistBISO, setMyWhitelistBISO] = useState(0);
+  const [myPublicBISO, setMyPublicBISO] = useState(0);
   const [isWhitelist, setIsWhitelist] = useState(false);
 
   const wallet = [
@@ -155,8 +155,8 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     };
     setUpdate();
   }, []);
-  const whiteAmount = 5.1,
-    publicAmount = 11.9;
+  const whiteAmount = 249000,
+    publicAmount = 581000;
 
   const update = async () => {
     const totalWhitelistSale = await getTotalSale(2, 1);
@@ -175,7 +175,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       setBalance(utils.formatUnits(String(balance.total), 8).toString());
       const whitelistTotalSale = await getAmountByAddress(accounts[0], 2, 1);
       console.log("whitelistTotalSale", whitelistTotalSale);
-      setMyWhitelistBtc(whitelistTotalSale.data.totalBuy);
+      setMyWhitelistBISO(whitelistTotalSale.data.totalBuy);
       console.log("totalWhitelistSale", totalWhitelistSale.data.totalBuy);
       const WhitelistObtained =
         totalWhitelistSale.data.totalSale * 1 < whiteAmount
@@ -186,7 +186,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       setWhitelistObtained(WhitelistObtained);
 
       const publicTotalSale = await getAmountByAddress(accounts[0], 2, 2);
-      setMyPublicBtc(publicTotalSale.data.totalBuy);
+      setMyPublicBISO(publicTotalSale.data.totalBuy);
       console.log("publicTotalSale", publicTotalSale);
       const publicObtained =
         totalPublicSale.data.totalSale * 1 < publicAmount
@@ -504,7 +504,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list}>
                 <div className={styles.label}>Token Price</div>
                 <div className={styles.val + " " + styles.ori}>
-                  {tokenPrice} BTC
+                  {tokenPrice} BISO
                 </div>
               </div>
               <div className={styles.list}>
@@ -517,13 +517,13 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                 <div className={styles.list}>
                   <div className={styles.label}>Total fundraising amount</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {whiteAmount} BTC
+                    {whiteAmount} BISO
                   </div>
                 </div>
                 <div className={styles.list}>
                   <div className={styles.label}>Actual fundraising amount</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {whitelistActualAmount} BTC
+                    {whitelistActualAmount} BISO
                   </div>
                 </div>
                 <div className={styles.list}>
@@ -537,7 +537,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                     Number of my fundraising amount
                   </div>
                   <div className={styles.val + " " + styles.ori}>
-                    {myWhitelistBtc} $BTC
+                    {myWhitelistBISO} $BISO
                   </div>
                 </div>
                 <div className={styles.list}>
@@ -555,7 +555,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>IDO Whitelist Round Quota</div>
                 <div className={styles.val + " " + styles.ori}>
-                  0.01 $BTC - 0.077 $BTC
+                  10k $BISO - 500k $BISO
                 </div>
               </div>
               <span className={styles.wrap}>
@@ -571,7 +571,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>Balance</div>
                 <div className={styles.val + " " + styles.ori}>
-                  {balance} $BTC
+                  {balance} $BISO
                 </div>
               </div>
               <Button
@@ -642,7 +642,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list}>
                 <div className={styles.label}>Token Price</div>
                 <div className={styles.val + " " + styles.ori}>
-                  {tokenPrice} BTC
+                  {tokenPrice} BISO
                 </div>
               </div>
               <div className={styles.list}>
@@ -655,13 +655,13 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                 <div className={styles.list}>
                   <div className={styles.label}>Total fundraising amount</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {publicAmount} BTC
+                    {publicAmount} BISO
                   </div>
                 </div>
                 <div className={styles.list}>
                   <div className={styles.label}>Actual fundraising amount</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {actualAmount} BTC
+                    {actualAmount} BISO
                   </div>
                 </div>
                 <div className={styles.list}>
@@ -675,7 +675,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                     Number of my fundraising amount
                   </div>
                   <div className={styles.val + " " + styles.ori}>
-                    {myPublicBtc} $BTC
+                    {myPublicBISO} $BISO
                   </div>
                 </div>
                 <div className={styles.list}>
@@ -693,7 +693,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>IDO Public Round Quota</div>
                 <div className={styles.val + " " + styles.ori}>
-                  0.01 $BTC - 0.577 $BTC
+                  10k $BISO - 500k $BISO
                 </div>
               </div>
               <span className={styles.wrap}>
@@ -709,7 +709,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
               <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>Balance</div>
                 <div className={styles.val + " " + styles.ori}>
-                  {balance} $BTC
+                  {balance} $BISO
                 </div>
               </div>
 
@@ -914,8 +914,17 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   7% of the funds will be used as a platform service fee for
                   marketing purposes 🪙
                 </p>
-  <p className={styles.red}>
-   * Before participating in the launch, you must confirm that you are not located, incorporated, or a citizen or resident of the United States of America, People’s Republic of China, Bermuda, Burundi, Central African Republic, Cuba, Democratic Republic of Congo, Eritrea, Guinea-Bissau, Iran, Libya, Mali, North Korea, Palestine, Republic of Seychelles, Somalia, South Sudan, Sudan, Syria, Western Sahara, Yemen, Crimea and Sevastopol, or any other state, country, or jurisdiction where participation in this launch would be illegal according to applicable law.
+                <p className={styles.red}>
+                  * Before participating in the launch, you must confirm that
+                  you are not located, incorporated, or a citizen or resident of
+                  the United States of America, People’s Republic of China,
+                  Bermuda, Burundi, Central African Republic, Cuba, Democratic
+                  Republic of Congo, Eritrea, Guinea-Bissau, Iran, Libya, Mali,
+                  North Korea, Palestine, Republic of Seychelles, Somalia, South
+                  Sudan, Sudan, Syria, Western Sahara, Yemen, Crimea and
+                  Sevastopol, or any other state, country, or jurisdiction where
+                  participation in this launch would be illegal according to
+                  applicable law.
                 </p>
               </div>
             </div>
