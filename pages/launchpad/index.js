@@ -67,7 +67,7 @@ const Launchpad = () => {
     },
     {
       id: 1,
-      title: "TBWS",
+      title: "TBWZ",
       desc: `Three-body Warrior is a WEB3 game, based on the BRC20 protocol ARPG + MOBA game, the game story takes place in 2272 and now, the three-body man from the future takes over the governance of the earth in an all-round way, through the game system, each player can have an immersive experience. The form of the earth in the metaverse period and participate in various governances. At the same time, you can get income in the game, and you can also convert the income into real value, (legal currency). A global team based in the United States and South Korea provides support for game development. Product features include NFT mall, game center, Defi module, incentives, and personal center.`,
       banner: project1,
       avatar: avatar1,
