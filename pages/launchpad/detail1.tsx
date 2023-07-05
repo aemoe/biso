@@ -110,7 +110,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     },
   ];
 
-  const [tokenPrice, setTokenPrice] = useState(0.33);
+  const [tokenPrice, setTokenPrice] = useState(3);
   const [percentage, setPercentage] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [whitelistActualAmount, setWhitelistActualAmount] = useState(0);
@@ -155,8 +155,8 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     };
     setUpdate();
   }, []);
-  const whiteAmount = 249000,
-    publicAmount = 581000;
+  const whiteAmount = 5200000,
+    publicAmount = 10400000;
 
   const update = async () => {
     const totalWhitelistSale = await getTotalSale(2, 1);
@@ -371,7 +371,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
           <div className={styles.card + " " + styles.project}>
             <div className={styles.banner1}></div>
             <div className={styles.info}>
-              <div className={styles.title}>TBWS</div>
+              <div className={styles.title}>TBWZ</div>
               {/* <div className={styles.avatar}>
                 <Image src={avatar} alt="avatar" width={35} height={35} />
                 <div className={styles.name}>Cloris Chen</div>
@@ -457,7 +457,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
             <div className={styles.card + " " + styles.item}>
               <div className={styles.title}>
                 <div>
-                  <div className={styles.ori}>TBWS</div>
+                  <div className={styles.ori}>TBWZ</div>
                   <div>Whitelist Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
@@ -543,7 +543,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                 <div className={styles.list}>
                   <div className={styles.label}>Number of tokens obtained</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {whitelistObtained} $TBWS
+                    {whitelistObtained} $TBWZ
                   </div>
                 </div>
               </div>
@@ -595,7 +595,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
             <div className={styles.card + " " + styles.item}>
               <div className={styles.title}>
                 <div>
-                  <div className={styles.ori}>TBWS</div>
+                  <div className={styles.ori}>TBWZ</div>
                   <div>Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
@@ -681,7 +681,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                 <div className={styles.list}>
                   <div className={styles.label}>Number of tokens obtained</div>
                   <div className={styles.val + " " + styles.ori}>
-                    {obtained} $TBWS
+                    {obtained} $TBWZ
                   </div>
                 </div>
               </div>
