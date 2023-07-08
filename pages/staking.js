@@ -218,7 +218,7 @@ const StakePool = (props) => {
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Reward</div>
-          <div className={classNames(styles.val, styles.ori)}>500000 ${name}</div>
+          <div className={classNames(styles.val, styles.ori)}>300000 ${name}</div>
         </div>
         <div className={styles.props}>
           <div className={styles.label}>Total Stake</div>
