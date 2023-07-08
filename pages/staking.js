@@ -346,7 +346,7 @@ const Stake = () => {
                 Earn $$$
               </div>
               <div className={styles.projects}>    
-                <StakePool projectID="3" name="TBWS" isOver={false} />
+                <StakePool projectID="3" name="TBWZ" isOver={false} />
                 {/* <StakePool projectID="2" name="ARKS" isOver={true} /> */}
               </div>
             </div>
