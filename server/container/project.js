@@ -44,7 +44,7 @@ PROJECT_IDO.belongsTo(PROJECT, {
 });
 
 const WHITELIST = [
-  "bc1pkgw3ckvhvf4m2pq2fw9w4x8s9l4lvp2y5xz6guau90e4ppqqflgs3mdujx"
+  "bc1pkgw3ckvhvf4m2pq2fw9w4x8s9l4lvp2y5xz6guau90e4ppqqflgs3mduj"
 ];
 
 // 获取Launchpad总数据

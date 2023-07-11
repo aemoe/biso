@@ -37,6 +37,7 @@ import {
   getTotalSale,
   projectCheckWhitelist,
   getInscriptionsByAddress,
+  inscription,
 } from "../../api/api";
 import classNames from "classnames/bind";
 
@@ -232,7 +233,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
        }
        const Inscriptions = await getInscriptionsByAddress(
          accounts[0],
-         1
+         5
        );
        console.log("Inscriptions", Inscriptions.inscriptions);
 
@@ -436,7 +437,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     );
     console.log(inscriptionId);
     // let inscriptionId = "574101b8506f048807253b34b4c5298d42d659324b37457c21f90bf0514e6088i0"
-    await inscription(accounts[0], transferValue, inscriptionId, projectID);
+    await inscription(accounts[0], transferValue, inscriptionId, 5);
     toast.success("Inscription success", toastConfig);
     setTransferValue(0);
   };
@@ -449,6 +450,9 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
         setBtnEnable(false);
       }, 1000);
 
+    window.unisat.requestAccounts();
+    let accounts = await window.unisat.getAccounts();
+    
     if (new Date().getTime() < 1689073200 * 1000 && type == 1) {
       toast.warning("The Whitelist sale round has yet to begin", toastConfig);
       return;
@@ -478,10 +482,11 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     const whitelistInputSale = await getAmountByAddress(accounts[0], 5, 1);
     if (
       type == 1 &&
-      whitelistInputSale.data.totalBuy * 1 + amount * 1 > 500000
+      (whitelistInputSale.data.totalBuy * 1 + amount * 1 > 500000 ||
+        whitelistInputSale.data.totalBuy * 1 + amount * 1 < 10000)
     ) {
       toast.warning(
-        "Your contribution amount cannot exceed 500000",
+        "Your contribution amount must be between 10000 to 500000!",
         toastConfig
       );
       return;
@@ -489,16 +494,19 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
 
     const publicInputSale = await getAmountByAddress(accounts[0], 5, 2);
     console.log("publicInputSale", publicInputSale);
-    if (type == 2 && publicInputSale.data.totalBuy * 1 + amount * 1 > 500000) {
+    if (
+      type == 2 &&
+      (publicInputSale.data.totalBuy * 1 + amount * 1 > 500000 ||
+        publicInputSale.data.totalBuy * 1 + amount * 1 < 10000)
+    ) {
       toast.warning(
-        "Your contribution amount cannot exceed 500000",
+        "Your contribution amount must be between 10000 to 500000!",
         toastConfig
       );
       return;
     }
 
-    window.unisat.requestAccounts();
-    let accounts = await window.unisat.getAccounts();
+
 
      const isWhitelist = await projectCheckWhitelist(accounts[0]);
      console.log("isWhitelist", isWhitelist.data.isWhitelist);
@@ -512,13 +520,9 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       `https://mempool.space/api/v1/fees/recommended`
     );
     console.log(data);
-    let txid = await window.unisat.sendInscription(
-      receiveAddress[0],
-      inscriptionId,
-      {
-        feeRate: data.halfHourFee,
-      }
-    );
+    let txid = await window.unisat.sendInscription(wallet[type], inscriptionId, {
+      feeRate: data.halfHourFee,
+    });
     // let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
     if (txid) {
       await mintSale(accounts[0], txid, type, amount, 5);
