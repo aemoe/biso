@@ -173,7 +173,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
   const update = async () => {
     const totalWhitelistSale = await getTotalSale(5, 1);
     console.log("totalSale", totalWhitelistSale.data);
-    setWhitelistFundraisers(totalWhitelistSale.data.totalUsers * 1 + 75);
+    setWhitelistFundraisers(totalWhitelistSale.data.totalUsers * 1 + 140);
     setWhitelistActualAmount(totalWhitelistSale.data.totalSale);
     const totalPublicSale = await getTotalSale(5, 2);
     console.log("totalPublicSale", totalPublicSale.data);
