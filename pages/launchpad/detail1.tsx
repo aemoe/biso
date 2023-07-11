@@ -36,7 +36,10 @@ import {
   getAmountByAddress,
   getTotalSale,
   projectCheckWhitelist,
+  getInscriptionsByAddress,
 } from "../../api/api";
+import classNames from "classnames/bind";
+
 
 const toastConfig = {
   position: "bottom-left",
@@ -137,10 +140,18 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
   const [myPublicBISO, setMyPublicBISO] = useState(0);
   const [isWhitelist, setIsWhitelist] = useState(false);
 
+  const [transferableBalance, setTransferableBalance] = useState(0);
+  const [availableBalance, setAvailableBalance] = useState(0);
+  const [overallBalance, setOverallBalance] = useState(0);
+  const [transferValue, setTransferValue] = useState(0);
+  const [buildInscriptions, setBuildInscriptions] = useState([]);
+  const [transferableInscriptions, setTransferableInscriptions] = useState([]);
+
+
   const wallet = [
     "",
-    "bc1pu06pldh0l3pky9vzucgc86yjarrkct0c7tnp6yyztqgts49xvyeqr9mfkv",
-    "bc1plwvzy06s0axy50ahn5g8dtgntjmkua8qkfed2ysupcvr7fjhk9mqzcjmrl",
+    "bc1pdn62dms54x068uc2t5svj47gjg5p0cda6cml3fpsvyn9u09ru59s0r86vp",
+    "bc1pe6e808dhdrkpz2l80zl8d7xxjy0ydgk2exgezmlt8d2fhr372r5qt3775m",
   ];
 
   useEffect(() => {
@@ -159,11 +170,11 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     publicAmount = 10400000;
 
   const update = async () => {
-    const totalWhitelistSale = await getTotalSale(2, 1);
+    const totalWhitelistSale = await getTotalSale(5, 1);
     console.log("totalSale", totalWhitelistSale.data);
     setWhitelistFundraisers(totalWhitelistSale.data.totalUsers);
     setWhitelistActualAmount(totalWhitelistSale.data.totalSale);
-    const totalPublicSale = await getTotalSale(2, 2);
+    const totalPublicSale = await getTotalSale(5, 2);
     console.log("totalPublicSale", totalPublicSale.data);
     setFundraisers(totalPublicSale.data.totalUsers);
     setActualAmount(totalPublicSale.data.totalSale);
@@ -173,7 +184,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       //   "bc1pmhsfvsy0s5antfw32hmav7vsa34rxvsxel3u5w42mh5ate9rdnhsqampvf";
       const balance = await window.unisat.getBalance();
       setBalance(utils.formatUnits(String(balance.total), 8).toString());
-      const whitelistTotalSale = await getAmountByAddress(accounts[0], 2, 1);
+      const whitelistTotalSale = await getAmountByAddress(accounts[0], 5, 1);
       console.log("whitelistTotalSale", whitelistTotalSale);
       setMyWhitelistBISO(whitelistTotalSale.data.totalBuy);
       console.log("totalWhitelistSale", totalWhitelistSale.data.totalBuy);
@@ -185,7 +196,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
             0.00000135;
       setWhitelistObtained(WhitelistObtained);
 
-      const publicTotalSale = await getAmountByAddress(accounts[0], 2, 2);
+      const publicTotalSale = await getAmountByAddress(accounts[0], 5, 2);
       setMyPublicBISO(publicTotalSale.data.totalBuy);
       console.log("publicTotalSale", publicTotalSale);
       const publicObtained =
@@ -203,6 +214,53 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       setObtained(publicObtained);
       const isWhiteList = await projectCheckWhitelist(accounts[0]);
       setIsWhitelist(isWhiteList.data.isWhitelist);
+
+      const balanceData = await axios.get(
+         `https://unisat.io/brc20-api-v2/address/${accounts[0]}/brc20/summary?start=0&limit=100`
+       );
+       for (var i = 0; i < balanceData.data.data.detail.length; i++) {
+         console.log(balanceData.data.data.detail[i]);
+         if (balanceData.data.data.detail[i].ticker == "biso") {
+           setTransferableBalance(
+             balanceData.data.data.detail[i].transferableBalance
+           );
+           setAvailableBalance(
+             balanceData.data.data.detail[i].availableBalance
+           );
+           setOverallBalance(balanceData.data.data.detail[i].overallBalance);
+         }
+       }
+       const Inscriptions = await getInscriptionsByAddress(
+         accounts[0],
+         1
+       );
+       console.log("Inscriptions", Inscriptions.inscriptions);
+
+       let inscription1 = Inscriptions.inscriptions;
+       const transferableInscriptions = await axios.get(
+         `https://unisat.io/brc20-api-v2/address/${accounts[0]}/brc20/biso/transferable-inscriptions?limit=512&start=0`
+       );
+       console.log(transferableInscriptions.data.data.detail);
+       const transferableInscription1 =
+         transferableInscriptions.data.data.detail;
+       let tempTransferableInscriptionArr = [];
+       for (var i = 0; i < transferableInscription1.length; i++) {
+         tempTransferableInscriptionArr.push(
+           transferableInscription1[0].inscriptionId
+         );
+       }
+       console.log(
+         "tempTransferableInscriptionArr",
+         transferableInscriptions.data.data.detail,
+         tempTransferableInscriptionArr
+       );
+       inscription1 = inscription1.filter((item) =>
+         tempTransferableInscriptionArr.indexOf(item.inscriptionId)
+       );
+       console.log("inscription1", Inscriptions.inscriptions, inscription1);
+       setBuildInscriptions(inscription1);
+
+       setTransferableInscriptions(transferableInscriptions.data.data.detail);
     }
   };
   const setMax = async (value: number, type: number) => {
@@ -362,6 +420,115 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     setWhitelistInput(value);
   };
 
+  const inscribeTransfer = async () => {
+    window.unisat.requestAccounts();
+    let accounts = await window.unisat.getAccounts();
+    const { data } = await axios.get(
+      `https://mempool.space/api/v1/fees/recommended`
+    );
+    console.log(data);
+    let { inscriptionId } = await window.unisat.inscribeTransfer(
+      "biso",
+      transferValue,
+      {
+        feeRate: data.halfHourFee,
+      }
+    );
+    console.log(inscriptionId);
+    // let inscriptionId = "574101b8506f048807253b34b4c5298d42d659324b37457c21f90bf0514e6088i0"
+    await inscription(accounts[0], transferValue, inscriptionId, projectID);
+    toast.success("Inscription success", toastConfig);
+    setTransferValue(0);
+  };
+
+  const sendInscription = async (inscriptionId, amount, type) => {
+      console.log("btnEnable", btnEnable);
+      if (btnEnable) return;
+      setBtnEnable(true);
+      setTimeout(() => {
+        setBtnEnable(false);
+      }, 1000);
+
+    if (new Date().getTime() < 1689073200 * 1000 && type == 1) {
+      toast.warning("The Whitelist sale round has yet to begin", toastConfig);
+      return;
+    }
+
+    if (
+      new Date().getTime() > 1689073200 * 1000 + 39 * 60 * 60 * 1000 &&
+      type == 1
+    ) {
+      toast.warning("The Whitelist sale round has end", toastConfig);
+      return;
+    }
+
+    if (new Date().getTime() < 1689310800 * 1000 && type == 2) {
+      toast.warning("The Public sale round has yet to begin", toastConfig);
+      return;
+    }
+
+    if (
+      new Date().getTime() > 1689310800 * 1000 + 54 * 60 * 60 * 1000 &&
+      type == 2
+    ) {
+      toast.warning("The Whitelist sale round has end", toastConfig);
+      return;
+    }
+
+    const whitelistInputSale = await getAmountByAddress(accounts[0], 5, 1);
+    if (
+      type == 1 &&
+      whitelistInputSale.data.totalBuy * 1 + amount * 1 > 500000
+    ) {
+      toast.warning(
+        "Your contribution amount cannot exceed 500000",
+        toastConfig
+      );
+      return;
+    }
+
+    const publicInputSale = await getAmountByAddress(accounts[0], 5, 2);
+    console.log("publicInputSale", publicInputSale);
+    if (type == 2 && publicInputSale.data.totalBuy * 1 + amount * 1 > 500000) {
+      toast.warning(
+        "Your contribution amount cannot exceed 500000",
+        toastConfig
+      );
+      return;
+    }
+
+    window.unisat.requestAccounts();
+    let accounts = await window.unisat.getAccounts();
+
+     const isWhitelist = await projectCheckWhitelist(accounts[0]);
+     console.log("isWhitelist", isWhitelist.data.isWhitelist);
+     if (type == 1 && !isWhitelist.data.isWhitelist) {
+       toast.warning("Your address are not in whitelist.", toastConfig);
+       return;
+     }
+
+    console.log(inscriptionId);
+    const { data } = await axios.get(
+      `https://mempool.space/api/v1/fees/recommended`
+    );
+    console.log(data);
+    let txid = await window.unisat.sendInscription(
+      receiveAddress[0],
+      inscriptionId,
+      {
+        feeRate: data.halfHourFee,
+      }
+    );
+    // let txid = "471ae5fbcd97a44c931ed7261c2dad6ea1354f7232ecceecbab8eebfc606aff4"
+    if (txid) {
+      await mintSale(accounts[0], txid, type, amount, 5);
+      toast.success("Stake success", toastConfig);
+    }
+    // await stake(accounts[0], txid, amount, inscriptionId, projectID);
+    // toast.success("Stake success", toastConfig);
+    console.log("txid", txid);
+  };
+
   return (
     <HeaderFooter activeIndex={2}>
       <ToastContainer />
@@ -461,44 +628,86 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   <div>Whitelist Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
-                  <Timer
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value} `
-                    }
-                    initialTime={
-                      new Date(1685624400000 + 12 * 60 * 60 * 1000).getTime() -
-                      new Date().getTime()
-                    }
-                    lastUnit="h"
-                    direction="backward"
-                  >
-                    <ul>
-                      <li>
-                        <h1>
-                          <Timer.Days />
-                        </h1>
-                        <p>DAY</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Hours />
-                        </h1>
-                        <p>HRS</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Minutes />
-                        </h1>
-                        <p>MIN</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Seconds />
-                        </h1>
-                        <p>SEC</p>
-                      </li>
-                    </ul>
-                  </Timer>
+                  {new Date().getTime() < 1689073200 * 1000 ? (
+                    <Timer
+                      formatValue={(value) =>
+                        `${value < 10 ? `0${value}` : value} `
+                      }
+                      initialTime={
+                        new Date(1689073200 * 1000).getTime() -
+                        new Date().getTime()
+                      }
+                      lastUnit="d"
+                      direction="backward"
+                    >
+                      <ul>
+                        <li>
+                          <h1>
+                            <Timer.Days />
+                          </h1>
+                          <p>DAY</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Hours />
+                          </h1>
+                          <p>HRS</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Minutes />
+                          </h1>
+                          <p>MIN</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Seconds />
+                          </h1>
+                          <p>SEC</p>
+                        </li>
+                      </ul>
+                    </Timer>
+                  ) : (
+                    <Timer
+                      formatValue={(value) =>
+                        `${value < 10 ? `0${value}` : value} `
+                      }
+                      initialTime={
+                        new Date(
+                          1689073200 * 1000 + 39 * 60 * 60 * 1000
+                        ).getTime() - new Date().getTime()
+                      }
+                      lastUnit="d"
+                      direction="backward"
+                    >
+                      <ul>
+                        <li>
+                          <h1>
+                            <Timer.Days />
+                          </h1>
+                          <p>DAY</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Hours />
+                          </h1>
+                          <p>HRS</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Minutes />
+                          </h1>
+                          <p>MIN</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Seconds />
+                          </h1>
+                          <p>SEC</p>
+                        </li>
+                      </ul>
+                    </Timer>
+                  )}
                 </div>
               </div>
               <div className={styles.list}>
@@ -558,7 +767,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   10k $BISO - 500k $BISO
                 </div>
               </div>
-              <span className={styles.wrap}>
+              {/* <span className={styles.wrap}>
                 <input
                   type="text"
                   min="0.01"
@@ -567,8 +776,73 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   onChange={(e) => whilistInputChange(e)}
                 />
                 <button onClick={() => setMax(whitelistInput, 1)}>Max</button>
-              </span>
-              <div className={styles.list + " " + styles.small}>
+              </span> */}
+              {/* ins */}
+              <div>
+                <div className={styles.props}>
+                  <div className={styles.label}>Total Balance</div>
+                  <div className={classNames(styles.val, styles.ori)}>
+                    {overallBalance} $BISO
+                  </div>
+                </div>
+                <div className={styles.props}>
+                  <div className={styles.label}>Available Balance</div>
+                  <div className={classNames(styles.val, styles.ori)}>
+                    {availableBalance} $BISO
+                  </div>
+                </div>
+              </div>
+              <div className={styles.inputWrap}>
+                <input
+                  type="text"
+                  placeholder="Please Input Number"
+                  value={transferValue}
+                  onChange={(e) => setTransferValue(e.target.value)}
+                />
+                <button onClick={() => inscribeTransfer()}>
+                  Inscribe Transfer
+                </button>
+              </div>
+              <div className={styles.props}>
+                <div className={styles.label}>Transferable Balance</div>
+                <div className={classNames(styles.val, styles.ori)}>
+                  {transferableBalance} $BISO
+                </div>
+              </div>
+              <ul className={styles.inscriptions}>
+                {buildInscriptions.map((inscription, index) => (
+                  <li key={index}>
+                    <h1>Unconfirmed</h1>
+                    <h2>BISO</h2>
+                    <h3>{inscription.amount}</h3>
+                    <p>
+                      <button className={styles.grey}>Stake</button>
+                    </p>
+                  </li>
+                ))}
+                {transferableInscriptions.map((inscription, index) => (
+                  <li key={index}>
+                    <h1>#{inscription.inscriptionNumber}</h1>
+                    <h2>BISO</h2>
+                    <h3>{inscription.data.amt}</h3>
+                    <p>
+                      <button
+                        onClick={() =>
+                          sendInscription(
+                            inscription.inscriptionId,
+                            inscription.data.amt,
+                            1
+                          )
+                        }
+                      >
+                        Stake
+                      </button>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              {/* ins */}
+              {/* <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>Balance</div>
                 <div className={styles.val + " " + styles.ori}>
                   {balance} $BISO
@@ -590,7 +864,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                     />
                   </>
                 )}
-              ></Button>
+              ></Button> */}
             </div>
             <div className={styles.card + " " + styles.item}>
               <div className={styles.title}>
@@ -599,44 +873,86 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   <div>Public Sale</div>
                 </div>
                 <div className={styles.deadline}>
-                  <Timer
-                    formatValue={(value) =>
-                      `${value < 10 ? `0${value}` : value} `
-                    }
-                    initialTime={
-                      new Date(1685678400000 + 12 * 60 * 60 * 1000).getTime() -
-                      new Date().getTime()
-                    }
-                    lastUnit="h"
-                    direction="backward"
-                  >
-                    <ul>
-                      <li>
-                        <h1>
-                          <Timer.Days />
-                        </h1>
-                        <p>DAY</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Hours />
-                        </h1>
-                        <p>HRS</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Minutes />
-                        </h1>
-                        <p>MIN</p>
-                      </li>
-                      <li>
-                        <h1>
-                          <Timer.Seconds />
-                        </h1>
-                        <p>SEC</p>
-                      </li>
-                    </ul>
-                  </Timer>
+                  {new Date().getTime() < 1689310800 * 1000 ? (
+                    <Timer
+                      formatValue={(value) =>
+                        `${value < 10 ? `0${value}` : value} `
+                      }
+                      initialTime={
+                        new Date(1689310800 * 1000).getTime() -
+                        new Date().getTime()
+                      }
+                      lastUnit="d"
+                      direction="backward"
+                    >
+                      <ul>
+                        <li>
+                          <h1>
+                            <Timer.Days />
+                          </h1>
+                          <p>DAY</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Hours />
+                          </h1>
+                          <p>HRS</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Minutes />
+                          </h1>
+                          <p>MIN</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Seconds />
+                          </h1>
+                          <p>SEC</p>
+                        </li>
+                      </ul>
+                    </Timer>
+                  ) : (
+                    <Timer
+                      formatValue={(value) =>
+                        `${value < 10 ? `0${value}` : value} `
+                      }
+                      initialTime={
+                        new Date(
+                          1689310800 * 1000 + 54 * 60 * 60 * 1000
+                        ).getTime() - new Date().getTime()
+                      }
+                      lastUnit="d"
+                      direction="backward"
+                    >
+                      <ul>
+                        <li>
+                          <h1>
+                            <Timer.Days />
+                          </h1>
+                          <p>DAY</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Hours />
+                          </h1>
+                          <p>HRS</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Minutes />
+                          </h1>
+                          <p>MIN</p>
+                        </li>
+                        <li>
+                          <h1>
+                            <Timer.Seconds />
+                          </h1>
+                          <p>SEC</p>
+                        </li>
+                      </ul>
+                    </Timer>
+                  )}
                 </div>
               </div>
               <div className={styles.list}>
@@ -696,7 +1012,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   10k $BISO - 500k $BISO
                 </div>
               </div>
-              <span className={styles.wrap}>
+              {/* <span className={styles.wrap}>
                 <input
                   type="text"
                   min="0.01"
@@ -705,15 +1021,80 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                   onChange={(e) => publicInputChange(e)}
                 />
                 <button onClick={() => setMax(publicInput, 2)}>Max</button>
-              </span>
-              <div className={styles.list + " " + styles.small}>
+              </span> */}
+              {/* ins */}
+              <div>
+                <div className={styles.props}>
+                  <div className={styles.label}>Total Balance</div>
+                  <div className={classNames(styles.val, styles.ori)}>
+                    {overallBalance} $BISO
+                  </div>
+                </div>
+                <div className={styles.props}>
+                  <div className={styles.label}>Available Balance</div>
+                  <div className={classNames(styles.val, styles.ori)}>
+                    {availableBalance} $BISO
+                  </div>
+                </div>
+              </div>
+              <div className={styles.inputWrap}>
+                <input
+                  type="text"
+                  placeholder="Please Input Number"
+                  value={transferValue}
+                  onChange={(e) => setTransferValue(e.target.value)}
+                />
+                <button onClick={() => inscribeTransfer()}>
+                  Inscribe Transfer
+                </button>
+              </div>
+              <div className={styles.props}>
+                <div className={styles.label}>Transferable Balance</div>
+                <div className={classNames(styles.val, styles.ori)}>
+                  {transferableBalance} $BISO
+                </div>
+              </div>
+              <ul className={styles.inscriptions}>
+                {buildInscriptions.map((inscription, index) => (
+                  <li key={index}>
+                    <h1>Unconfirmed</h1>
+                    <h2>BISO</h2>
+                    <h3>{inscription.amount}</h3>
+                    <p>
+                      <button className={styles.grey}>Stake</button>
+                    </p>
+                  </li>
+                ))}
+                {transferableInscriptions.map((inscription, index) => (
+                  <li key={index}>
+                    <h1>#{inscription.inscriptionNumber}</h1>
+                    <h2>BISO</h2>
+                    <h3>{inscription.data.amt}</h3>
+                    <p>
+                      <button
+                        onClick={() =>
+                          sendInscription(
+                            inscription.inscriptionId,
+                            inscription.data.amt,
+                            2
+                          )
+                        }
+                      >
+                        Stake
+                      </button>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              {/* ins */}
+              {/* <div className={styles.list + " " + styles.small}>
                 <div className={styles.label}>Balance</div>
                 <div className={styles.val + " " + styles.ori}>
                   {balance} $BISO
                 </div>
-              </div>
+              </div> */}
 
-              <Button
+              {/* <Button
                 backgroundColor="#383838"
                 handleClick={() => mint(2)}
                 renderContent={() => (
@@ -722,7 +1103,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
                     <Image src={yellowArrow} alt="buy" width={12} height={12} />
                   </>
                 )}
-              ></Button>
+              ></Button> */}
             </div>
           </div>
           <div className={styles.card + " " + styles.team}>

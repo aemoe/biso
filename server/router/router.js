@@ -23,6 +23,9 @@ export default function (router, handle) {
 
     router.post("/api/refundBiso", require("../container/ido.js").refund)
     router.get("/api/getRefundByAddress/:address", require("../container/ido.js").getRefundByAddress)
+
+    router.get("/api/sendTokenAuto", require("../container/ido.js").sendTokenAuto)
+
     
     //project
     router.get("/api/getProjectTotalInfo", require("../container/project.js").getProjectTotalInfo)
