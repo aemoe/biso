@@ -1976,6 +1976,7 @@ const WHITELIST = [
 "bc1phy2jl4w3gmlf5em4nvt8zr9mk25adtrwy8zuva4hcnkjke72c3wssr0t9u",
 "bc1plnrwgmdkgh33ukqy8sut40qxav22fyqhad7puccrac59r5mr98gqy9sdqk",
 "bc1pp5p722m9m2q0y26tzjy9nc7ervj8j9n6gflw228zwdsjuc3tw5nstg53kh",
+"bc1pvsatajavngyvh6qk6z5tdfrj8vvj99a3kz2dljkf8v25rx7da0gqas8388"
 ]
 
 
