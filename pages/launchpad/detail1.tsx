@@ -58,7 +58,7 @@ const LaunchpadDetails = () => {
   const router = useRouter();
 
   const options = {
-    color: ["#282D34", "#21BF73", "#ff4b19"],
+    color: ["#282D34", "#21BF73", "#ff4b19", "#c304ea"],
     tooltip: {
       trigger: "item",
     },
@@ -87,9 +87,10 @@ const LaunchpadDetails = () => {
           show: false,
         },
         data: [
-          { value: 12600000, name: "IDO" },
-          { value: 6300000, name: "Game output" },
-          { value: 2100000, name: "CEX reserved" },
+          { value: 5000000, name: "IDO" },
+          { value: 80000000, name: "Game output" },
+          { value: 10000000, name: "CEX reserved" },
+          { value: 5000000, name: "Market" },
         ],
       },
     ],
@@ -167,8 +168,8 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     };
     setUpdate();
   }, []);
-  const whiteAmount = 5200000,
-    publicAmount = 10400000;
+  const whiteAmount = 1500000,
+    publicAmount = 3500000;
 
   const update = async () => {
     const totalWhitelistSale = await getTotalSale(5, 1);
@@ -191,10 +192,10 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       console.log("totalWhitelistSale", totalWhitelistSale.data.totalBuy);
       const WhitelistObtained =
         totalWhitelistSale.data.totalSale * 1 < whiteAmount
-          ? (whitelistTotalSale.data.totalBuy * 1) / 0.00000135
+          ? (whitelistTotalSale.data.totalBuy * 1) / 3
           : (whitelistTotalSale.data.totalBuy * 1) /
             ((totalWhitelistSale.data.totalSale * 1) / whiteAmount) /
-            0.00000135;
+            3;
       setWhitelistObtained(WhitelistObtained);
 
       const publicTotalSale = await getAmountByAddress(accounts[0], 5, 2);
@@ -202,10 +203,10 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
       console.log("publicTotalSale", publicTotalSale);
       const publicObtained =
         totalPublicSale.data.totalSale * 1 < publicAmount
-          ? (publicTotalSale.data.totalBuy * 1) / 0.00000135
+          ? (publicTotalSale.data.totalBuy * 1) / 3
           : (publicTotalSale.data.totalBuy * 1) /
             ((totalPublicSale.data.totalSale * 1) / publicAmount) /
-            0.00000135;
+            3;
       console.log(
         "publicTotalSale",
         publicTotalSale.data.totalBuy,
