@@ -153,7 +153,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
   const wallet = [
     "",
     "bc1pdn62dms54x068uc2t5svj47gjg5p0cda6cml3fpsvyn9u09ru59s0r86vp",
-    "bc1pe6e808dhdrkpz2l80zl8d7xxjy0ydgk2exgezmlt8d2fhr372r5qt3775m",
+    "bc1pdn62dms54x068uc2t5svj47gjg5p0cda6cml3fpsvyn9u09ru59s0r86vp",
   ];
 
   useEffect(() => {
