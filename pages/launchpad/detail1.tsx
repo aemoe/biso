@@ -168,8 +168,8 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     };
     setUpdate();
   }, []);
-  const whiteAmount = 1500000,
-    publicAmount = 3500000;
+  const whiteAmount = 4500000,
+    publicAmount = 10500000;
 
   const update = async () => {
     const totalWhitelistSale = await getTotalSale(5, 1);
