@@ -178,7 +178,7 @@ China, Singapore, and South Korea, currently have a total of 9 people. Among the
     setWhitelistActualAmount(totalWhitelistSale.data.totalSale);
     const totalPublicSale = await getTotalSale(5, 2);
     console.log("totalPublicSale", totalPublicSale.data);
-    setFundraisers(totalPublicSale.data.totalUsers * 1 + 42);
+    setFundraisers(totalPublicSale.data.totalUsers * 1 + 102);
     setActualAmount(totalPublicSale.data.totalSale);
     let accounts = await window.unisat.getAccounts();
     if (accounts[0]) {
